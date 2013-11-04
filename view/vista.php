@@ -1,15 +1,13 @@
-<html>
-<head><title>Listados de Usuarios</title></head>
-<body><h1>Listado de Usuarios Activos </h1>
-<table>
-<tr><th>Nombre</th><th>DNI</th></tr>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Proyecto Laboratior</title>
 
-<?php foreach ($usuarios as $usuario){
-	echo "<tr><td>".$usuario[0]. "</td>";
-	
-};?>
+	Pagina en construcción
 
-</table>
+<body>
 </body>
 </html>
 
