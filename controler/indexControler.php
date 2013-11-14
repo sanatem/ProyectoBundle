@@ -1,8 +1,8 @@
 <?php
 
 
-define('RAIZ_APLICACION', '/var/www/grupo_51/');
-define('RAIZ_SITIO', 'http://localhost.proy/controler/indexControler.php?');
+define('RAIZ_APLICACION', 'https://grupo_51.proyecto2013.linti.unlp.edu.ar/');
+define('RAIZ_SITIO', 'https://grupo_51.proyecto2013.linti.unlp.edu.ar/controler/indexControler.php?');
 
 require_once(RAIZ_APLICACION."/controler/router.php");
 
