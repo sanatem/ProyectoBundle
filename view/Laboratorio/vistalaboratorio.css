@@ -1,0 +1,48 @@
+body{
+	background-image:url("../view/img/fondo.png");
+	background-repeat:no-repeat;
+	background-size: 100%;
+}
+.textoinput{
+}
+.formulario{
+	text-align: center;
+}
+
+p{color:white;}
+
+h1{color:white;}
+
+#centrado{
+	margin: 0 auto;
+	width: 25%;
+}
+#titulo{
+	margin:0 auto;
+	text-align:center;
+}
+
+.barraizq{
+	color:white;
+	float:left;
+	background-color:transparent;
+	height:550px;
+	width:20%;
+	text-align:center;
+}
+
+.barrader{
+	color:white;
+	background-color:transparent;
+	width:90%;
+	height:110%;
+	font-size:21px;
+	text-align:left;
+	margin-left:30;
+}
+
+a:link, a:visited{   
+	text-decoration:none;   
+	color:#114b57;
+	font-size:24px;
+}
