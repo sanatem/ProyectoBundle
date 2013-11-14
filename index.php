@@ -1,5 +1,4 @@
 <?php
 
-header('Location: ../controler/implementandoMVC.php');
-
+header( "Location: ../controler/indexControler.php?user=cargalogin" );
 ?>
