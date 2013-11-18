@@ -4,7 +4,7 @@
  * @param type $nombreClase
  */
 function __autoload($nombreClase){
-    $archivo = RAIZ_APLICACION."/model/".$nombreClase.".php";
+    $archivo = "../model/".$nombreClase.".php";
     if(file_exists($archivo)){
         include_once($archivo);
     }  else {
