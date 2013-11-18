@@ -2,9 +2,9 @@
 //conexion a la base de datos
 function conectarBaseDatos(){
 	$db_host="127.0.0.1";
-	$db_user="esteban";
-	$db_pass="estebans16";
-	$db_base="grupo_51"; 
+	$db_user="grupo51";
+	$db_pass="aGAedHaiy3e6SVKX";
+	$db_base="grupo51"; 
 try{
 
 	$cn = new PDO("mysql:dbname=$db_base;host=$db_host","$db_user","$db_pass");
