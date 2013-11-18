@@ -42,7 +42,7 @@ $metodo = strtolower($datosModelo[1]);
 
 
 //Direccion del archivo que tiene la clase control.
-$destino = RAIZ_APLICACION."/controler/".$claseControl.".php";
+$destino = "./".$claseControl.".php";
 
 
 if(file_exists($destino)){
