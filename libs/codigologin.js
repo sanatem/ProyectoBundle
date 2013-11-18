@@ -6,5 +6,5 @@ $(document).ready(function(){
 function esconder(){
 	$("#banner1").hide();
 	$("#centrado").hide();
+	window.setTimeout(function(){	$("#banner1").fadeIn("slow"); $("#centrado").fadeIn("slow");},500);
 }
-window.setTimeout(function(){	$("#banner1").fadeIn("slow"); $("#centrado").fadeIn("slow");},500);

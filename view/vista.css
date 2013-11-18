@@ -1,5 +1,5 @@
 .laboratorix{
-	background-image:url('../view/img/fondo.png');
+	background-image:url(../view/img/fondo.png);
 	background-repeat:no-repeat;
 	background-size: 100%;
 }
@@ -7,11 +7,17 @@
 	text-align: center;
 }
 p{color:white;
-	font:caption;
+	font:arial;
+	display:inline;
+	font-size:15px;
 }
 #centrado{
 	float:left;
 	width: 30%;
+}
+.error{
+	float:left;
+	width:100%;
 }
 #banner1{
 	float:left;
@@ -25,12 +31,27 @@ p{color:white;
 	float:right;
 	width:45%;
 }
+.banner4{
+	width:100%;
+}
+.botonVolver{
+	float:left;
+	width:100%;
+}
+.tablaDinamica{
+	width:100%;
+	text-align: center;
+}
+.tablaFija{
+	width: 40%;
+	text-align:left;
+}
 #titulo{
 	margin:0 auto;
 	text-align:center;
 }
 #error{
-	background-image: url('../view/img/fondo_error.png');
+	background-image: url(../view/img/fondo_error.png);
 	background-repeat: no-repeat;
 	position: absolute;
 	background-size: 100%;
@@ -66,4 +87,19 @@ li {
 }
 h2{
 	color:white;
+}
+#navlist {
+    width: 100%;
+    text-align: center;
+}
+#navlist ul {
+    list-style: none;
+}
+.horizontal{
+	display: inline;
+}
+.tablaDinamic{
+	width:100%;
+	padding:25px;
+	text-align: center;
 }

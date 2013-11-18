@@ -1,25 +1,37 @@
-body{
-	background-image:url("../view/img/fondo.png");
-	background-repeat:no-repeat;
+.cabecera{
+	text-align: left;
+}
+
+.laboratorix{
+	background-image:url('../img/fondo.png');
+	background-repeat:repeat;
 	background-size: 100%;
 }
-.textoinput{
-}
+
 .formulario{
 	text-align: center;
+	color:white;	
 }
 
 p{color:white;}
 
 h1{color:white;}
+h3{color:white;}
 
 #centrado{
 	margin: 0 auto;
 	width: 25%;
+	color:white;
 }
 #titulo{
 	margin:0 auto;
 	text-align:center;
+}
+
+#contenido{
+	margin:0 auto;
+	text-align:center;
+	color:white;
 }
 
 .barraizq{
@@ -38,11 +50,36 @@ h1{color:white;}
 	height:110%;
 	font-size:21px;
 	text-align:left;
-	margin-left:30;
+	margin-left:30px;
 }
 
 a:link, a:visited{   
 	text-decoration:none;   
-	color:#114b57;
+	color:white;
 	font-size:24px;
+}
+
+ul{
+	list-style: none;
+}
+a.lista:link{text-decoration: none;
+	   color:white;
+	   font:caption;
+	}
+a.lista:hover{text-decoration: underline;
+			color:gray;
+}
+a.lista:active{	text-decoration: none;
+				color:black;
+}
+a.lista:visited{text-decoration: none;
+	   color:white;
+	   font:caption;}
+li {
+	padding-bottom: 15px;
+}
+
+#banner1{
+	float:left;
+	width:45%;
 }

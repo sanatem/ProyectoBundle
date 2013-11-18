@@ -19,5 +19,9 @@ try{
 
 
 }
+function cerrarConexion(){
+	return null;
+}
+
 
 ?>

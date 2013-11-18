@@ -1,22 +1,29 @@
 <!DOCTYPE HTML>
+
 <html>
-	<link rel="stylesheet" type="text/css" href="vistalaboratorio.css" />
-	<body>
-		<div id="titulo">
+	<head>
+	<link rel="stylesheet" type="text/css" href="../view/Laboratorio/vistalaboratorio.css" />
+	<meta charset="utf-8"/>
+	<script src="../libs/jquery.js" type="text/javascript"></script>
+	<script src="../libs/codigoAdmin.js" type="text/javascript"></script>
+	<title>Laboratorio</title>		
+	</head>
+	<body class="laboratorix" onload="esconder()">
+		<div class="cabecera">
+			<h3>Bienvenido usuario: {{user_name}}</h3>
+			<a href="{{ cerrar_sesion }}">Cerrar Sesión</a>
 		</div>
-		<div class='barraizq'>
-			<table border="1" cellpadding="0">
-				<tr>
-					<th>Men&uacute;</th>
-				</tr>
+		<div id="titulo">
+			<img src="../view/img/bannerLaboratorio.png" alt="Laboratorio" />
+		</div>
+		<div class="barraizq">	
+			<ul>				
 				{% for i in list %}
-					<tr>
-						<td>
-							<a href="{{ i['value'] }}">{{ i['name'] }}</a>
-						</td>
-					</tr>
+					<li>
+						<h3><a href="{{ i['value'] }}">{{ i['name'] }}</a></h3>
+					</li>
 				{% endfor %}
-			</table>
+			</ul>
 		</div>
 		<div class="barrader">
 			{{ contenido }}
