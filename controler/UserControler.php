@@ -8,24 +8,7 @@ class userControler {
 	{
 		return $this;	
 	}
-	function volverLogging(){
-		session_start();
-		require_once("../libs/Twig/Autoloader.php");
-		Twig_Autoloader::register();
-		$templateDir="../view/Administracion";
-		$loader = new Twig_Loader_Filesystem($templateDir);
-		$twig = new Twig_Environment($loader);
-//, array("cache" => $templateDirCompi,
-//           ));
-        $template = $twig->loadTemplate("vistaAdmin.php");
-//Probemos descomentando el de abajo y comentadno el de arriba
-//$template = $twig->loadTemplate("pruebas.html");
-		$template->display(array(
-		'raiz' => RAIZ_SITIO.'admin=altasybajas',
-		'tablas' => RAIZ_SITIO.'user=loginOut',
-		'nombreAdmin' => $_SESSION['usuario']
-));
-	}
+	
 
 
 
@@ -42,33 +25,40 @@ class userControler {
 			if ($usuarios != "error" ){
 				
 				if ( isset($usuarios['tipo_roll']) ) {
-					
 					session_start();
 					$_SESSION['estado']="logeado" ;
 					$_SESSION['usuario']=$us;
 					if ( $usuarios['tipo_roll'] == 1 ){
 						$_SESSION['tipo_roll']=1;
-						$templateDir= "../view/Administracion";
-						$vista="vistaAdmin.php" ;
-						$array=array('raiz' => RAIZ_SITIO."admin=altasybajas",
-								'tablas' => RAIZ_SITIO."user=loginOut",
-								'nombreAdmin' => $us
- 								);
 						
+						$templateDir="../view/Administracion";
+						
+						
+//, array("cache" => $templateDirCompi,
+//           ));
+        				
+        				$vista ="vistaAdmin.php";
+//Probemos descomentando el de abajo y comentadno el de arriba
+//$template = $twig->loadTemplate("pruebas.html");
+						$array=array(
+						'raiz' => RAIZ_SITIO.'admin=altasybajas',
+						'tablas' => RAIZ_SITIO.'admin=tablasreferencia',
+						'logg' => RAIZ_SITIO.'user=loginOut',
+						'nombreAdmin' => $_SESSION['usuario']);
 
 					}else {
 					  if ( $usuarios['tipo_roll'] == 2 ){
 							$_SESSION['tipo_roll']=2;
 							$templateDir="../view/FBA";
 							$vista="vistaFba.php" ;
-							$list=array('l1' => array('name' => 'crear encuesta','value' => RAIZ_SITIO."Fba=crearEncuesta"), 
-								'l2' => array('name' => 'Dar de alta laboratorio','value' => RAIZ_SITIO."Fba=crearLab") 
+							$list=array('l1' => array('name' => 'Administrar encuestas','value' => RAIZ_SITIO."Fba=cargarEncuestas"), 
+								'l2' => array('name' => 'Administrar laboratorios','value' => RAIZ_SITIO."Fba=listarLab") 
 								   );
 							$array=array('usuario' => $us,
 									
 									'raizlogOut' => RAIZ_SITIO."user=loginOut",
 									'titulo' => 'Personal FBA',
-									'bienv' => 'Bienvenido personal de la FBA',
+									'bienv' => 'Bienvenido',
 									'cerrar' => 'cerrar session',
 									'li' => $list
 									);
@@ -77,11 +67,16 @@ class userControler {
 						}else{
 							$templateDir="../view/Laboratorio";
 							$_SESSION['tipo_roll']=3;
-							$list=array('l1' => array('name' => 'Encuestas','value' => RAIZ_SITIO."Laboratorio=irEncuestas"), 
-								'l2' => array('name' => 'Informes','value' => RAIZ_SITIO."Laboratorio=irInformes"), 'l3' => array('name' => 'Cerrar sesi&oacute;n','value' => RAIZ_SITIO."User=loginOut")
-								   );
-							$array = array('list' => $list, 'contenido' => 'Bienvenido al &Acute;rea de Laborat&oacute;rio. En este sitio podr&aacute; ver las encuestas disponibles, cargar los resultados de cada encuesta y visualizar su
-												//informe particular y aquellos que sean de dominio público.');
+							$_SESSION['nombre']=$usuarios['nombre'];
+							$_SESSION['id']=$usuarios['id_us'];
+							$list=array('l1' => array('name' => 'Encuestas','value' => RAIZ_SITIO."Laboratorio=irEncuesta"), 
+								'l2' => array('name' => 'Informes','value' => RAIZ_SITIO."Laboratorio=irInforme"), 
+								'l3' => array('name' => 'Modificar datos','value' => RAIZ_SITIO."Laboratorio=irModificar"));
+							$array = array('list' => $list, 
+											'cerrar_sesion' => RAIZ_SITIO."User=loginOut", 
+											'contenido' => 'Bienvenido al Área de Laboratorio. En este sitio podrá ver las encuestas disponibles, cargar los resultados de cada encuesta y visualizar su informe particular y aquellos que sean de dominio público.', 
+											'user_name' => $_SESSION['nombre'], 
+											'id_user' => $_SESSION['id']);
 							$vista="vistaLaboratorio.php";
 						}
 					}
