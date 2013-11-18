@@ -1,4 +1,4 @@
 <?php
 
-header( "Location: ../controler/indexControler.php?user=cargalogin" );
+header( "Location: ../grupo_51/controler/indexControler.php?user=cargalogin" );
 ?>
