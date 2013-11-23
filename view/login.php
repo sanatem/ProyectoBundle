@@ -39,11 +39,12 @@
 </div>
 <div id="banner1">
 <img src="../view/img/quienesBanner.png" alt="banner"/>
+<br><br>
 <p>Somos una fundación sin fines de lucro que busca el bienestar tanto social como su salud, nos encargamos de purificar muestras y asegurar la mayor exactitud en los examenes de los laboratorios para conseguir un mejor estandar</p>
 </div>
 {% if error| length> 0 %}
 <div class="error">
-	<p>Error de usuario o contrase&ntilde;a</p>
+	<p>{{error}}</p>
 </div>
 {% endif %}
 </body>

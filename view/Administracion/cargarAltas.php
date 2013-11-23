@@ -9,12 +9,15 @@
 <link rel="stylesheet" type="css/text" href="../view/vista.css"/>
 </head>
 <body class="laboratorix" onload="esconder()">
+<div class="cabecera">
+<a href="{{lagg}}">Cerrar sesión</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerAdministracion.png" alt="bannerAdminsitracion"/>
 </div>
-<div class="tablaDinamica">
-<form method="POST" action="{{raiz}}" onSubmit="return validar()">
-<table class="tablaFija">
+<div class="centrado">
+<form class="formulario" method="POST" action="{{raiz}}" onSubmit="return validar()">
+<table class="table1">
 <tr>
 <td>
 <p>Introdusca el nombre del usuario</p>
@@ -42,19 +45,17 @@
 </td>
 </tr>
 </table>
-<input type="submit" value="Ingresar">
-</form>
 	{% if not error is empty %}
 		<div>
  			<p>El usuario ya se encuentra en la base de datos</p> 
 		</div>
 	{% endif %}
+<input type="submit" value="Ingresar">
+</form>
+<br>
+<div class="formulario">
+<a class ="lista" href="{{volver}}">Volver</a>
 </div>
-<div class="botonVolver">
-<a class="lista" href="{{volver}}">Volver</a>
-</div>
-<div class="banner2">
-<a class="lista" href="{{lagg}}">Cerrar sesión</a>
 </div>
 </body>
 </html>

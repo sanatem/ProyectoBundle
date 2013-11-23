@@ -19,16 +19,16 @@
 			<img src="{{ titulo }}" alt="Titulo" />
 		</div>
 		<div id="contenido">
-			<form method="POST" action="{{link}}">
-				<table border="">	
+			<form method="POST" action="{{link}}" onSubmit="return confirmar()">
+				<table class="table1">	
 					<tr>
 						<td>
-							<table border="" >			
+							<table class="table2" >			
 								<tr>
-									<td>
+									
 									{{ tipo_prueba['0'] }}
 									<input type="hidden" name="pruebaA" value="{{ tipo_prueba['0'] }}" >
-									</td>
+									
 								</tr>	
 									<tr>
 										<td>
@@ -36,11 +36,11 @@
 										</td>
 										<td>
 											<select name="metodoA">
-												{% for o in metodosA %}
+								
 													<option>
-														{{ o['nombre'] }}
+														{{ metodosA['nombre'] }}
 													</option>
-												{% endfor %}
+												
 											</select>
 										</td>
 									</tr>	
@@ -50,11 +50,11 @@
 										</td>
 										<td>
 											<select name="calibradorA">
-												{% for p in calibradoresA %}
+												
 													<option>
-														{{ p['nombre'] }}
+														{{ calibradoresA['nombre'] }}
 													</option>
-												{% endfor %}
+										
 											</select>
 										</td>
 									</tr>
@@ -64,11 +64,11 @@
 										</td>
 										<td>
 											<select name="reactivoA">
-												{% for q in reactivosA %}
+											
 													<option>
-														{{ q['nombre'] }}
+														{{ reactivosA['nombre'] }}
 													</option>
-												{% endfor %}
+									
 											</select>
 										</td>
 									</tr>
@@ -78,11 +78,11 @@
 										</td>
 										<td>
 											<select name="papelA">
-												{% for r in papelesA %}
+											
 													<option>
-														{{ r['nombre'] }}
+														{{ papelesA['nombre'] }}
 													</option>
-												{% endfor %}
+										
 											</select>
 										</td>
 									</tr>
@@ -92,13 +92,13 @@
 											{{ j }}
 										</td>
 										<td>
-											<input name="cutA" type="text" >
+											<input name="cutA" type="text" required>
 										</td>
 									</tr>
 								{% endfor %}
 							</table>
 						<br>
-						<table border="" >			
+						<table class="table2" >			
 							<tr>
 							{% for k in campos %}
 								<td>
@@ -111,24 +111,24 @@
 										91
 									</td>
 									<td>
-										<input type="text" name="resultado1A" >mg/dl
+										<input type="text" name="resultado1A" required>mg/dl
 									</td>
 										<td>
 											<select name="interpretacion1A">
-												{% for q in interpretacionesA %}
+												
 													<option>
-														{{ q['nombre'] }}
+														{{ interpretacionesA['0']['nombre'] }}
 													</option>
-												{% endfor %}	
+												
 											</select>
 										</td>
 										<td>
 											<select name="desicion1A">
-												{% for r in desicionesA %}
+												
 													<option>
-														{{ r['nombre'] }}
+														{{ desicionesA['0']['nombre'] }}
 													</option>
-												{% endfor %}	
+											
 											</select>
 										</td>
 								</tr>
@@ -137,34 +137,35 @@
 										92
 									</td>
 									<td>
-										<input type="text" name="resultado2A" >mg/dl
+										<input type="text" name="resultado2A" required>mg/dl
 									</td>
 										<td>
 											<select name="interpretacion2A">
-												{% for q in interpretacionesA %}
+										
 													<option>
-														{{ q['nombre'] }}
+														{{ interpretacionesA['1']['nombre'] }}
 													</option>
-												{% endfor %}	
+													
 											</select>
 										</td>
 										<td>
 											<select name="desicion2A">
-												{% for r in desicionesA %}
+											
 													<option>
-														{{ r['nombre'] }}
+														{{ desicionesA['1']['nombre'] }}
 													</option>
-												{% endfor %}	
+												
 											</select>
 										</td>
 								</tr>
 						</table>
-						<table border="" >			
+						<br>
+						<table class="table2" >			
 								<tr>
-									<td>
+									
 									{{ tipo_prueba['1'] }}
 									<input type="hidden" name="pruebaB" value="{{ tipo_prueba['1'] }}" >
-									</td>
+									
 								</tr>	
 								<tr>
 								<td>
@@ -172,11 +173,11 @@
 										</td>
 										<td>
 											<select name="metodoB">
-												{% for s in metodosB %}
+												
 													<option>
-														{{ s['nombre'] }}
+														{{ metodosB['nombre'] }}
 													</option>
-												{% endfor %}
+												
 											</select>
 										</td>
 									</tr>	
@@ -186,11 +187,11 @@
 										</td>
 										<td>
 											<select name="calibradorB">
-												{% for t in calibradoresB %}
+												
 													<option>
-														{{ t['nombre'] }}
+														{{ calibradoresB['nombre'] }}
 													</option>
-												{% endfor %}
+												
 											</select>
 										</td>
 									</tr>
@@ -200,11 +201,11 @@
 										</td>
 										<td>
 											<select name="reactivoB">
-												{% for u in reactivosB %}
+												
 													<option>
-														{{ u['nombre'] }}
+														{{ reactivosB['nombre'] }}
 													</option>
-												{% endfor %}
+										
 											</select>
 										</td>
 									</tr>
@@ -214,11 +215,11 @@
 										</td>
 										<td>
 											<select name="papelB">
-												{% for v in papelesB %}
+											
 													<option>
-														{{ v['nombre'] }}
+														{{ papelesB['nombre'] }}
 													</option>
-												{% endfor %}
+												
 											</select>
 										</td>
 									</tr>
@@ -228,13 +229,13 @@
 											{{ j }}
 										</td>
 										<td>
-											<input type="text" name="cutB" >
+											<input type="text" name="cutB" required>
 										</td>
 									</tr>
 								{% endfor %}
 							</table>
 						<br>
-						<table border="" >			
+						<table class="table2" >			
 							<tr>
 							{% for k in campos %}
 								<td>
@@ -247,24 +248,24 @@
 										91
 									</td>
 									<td>
-										<input type="text" name="resultado1B" >mg/dl
+										<input type="text" name="resultado1B" required>mg/dl
 									</td>
 										<td>
 											<select name="interpretacion1B">
-												{% for q in interpretacionesA %}
+												
 													<option>
-														{{ q['nombre'] }}
+														{{ interpretacionesB['0']['nombre'] }}
 													</option>
-												{% endfor %}	
+													
 											</select>
 										</td>
 										<td>
 											<select name="desicion1B">
-												{% for r in desicionesA %}
+												
 													<option>
-														{{ r['nombre'] }}
+														{{ desicionesB['0']['nombre'] }}
 													</option>
-												{% endfor %}	
+													
 											</select>
 										</td>
 								</tr>
@@ -273,24 +274,24 @@
 										92
 									</td>
 									<td>
-										<input type="text" name="resultado2B" >mg/dl
+										<input type="text" name="resultado2B" required>mg/dl
 									</td>
 										<td>
 											<select name="interpretacion2B">
-												{% for q in interpretacionesA %}
+										
 													<option>
-														{{ q['nombre'] }}
+														{{ interpretacionesB['1']['nombre'] }}
 													</option>
-												{% endfor %}	
+													
 											</select>
 										</td>
 										<td>
 											<select name="desicion2B">
-												{% for r in desicionesA %}
+												
 													<option>
-														{{ r['nombre'] }}
+														{{ desicionesB['1']['nombre'] }}
 													</option>
-												{% endfor %}	
+											
 											</select>
 										</td>
 								</tr>
@@ -299,10 +300,12 @@
 					</tr>
 					<tr>
 						<td>
-							Fecha de análisis:<input type="date" name="fechaAnalisis" ><br><br>
+							<br>
+							Fecha de análisis:<input type="date" name="fechaAnalisis" required><br><br>
 							<input type="hidden" name="fecha_inicio" value="{{ fecha_inicio }}" >
-							Comentario:<textarea name="comentario" ></textarea><br>
+							Comentario:<textarea name="comentario" required></textarea><br>
 							<input type="submit" value="Enviar" >
+							<br><br>
 						</td>
 					</tr>
 				</table>

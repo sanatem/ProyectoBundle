@@ -9,13 +9,16 @@
 <meta charset="utf-8"/>
 </head>
 <body class="laboratorix" onload="esconder()">
+<div class="cabecera">
+<a href="{{lagg}}">Cerrar sesión</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerAdministracion.png" alt="bannerAdministrador"/>
 </div>
 <div>
 <form class="formulario" method="POST" action="{{modificar}}" onSubmit="return confirmar()">
 <div class="tablaDinamic">
-<table border="1">
+<table class="table1" border="">
     <tr>
     <td><p>Nombre</p>
     </td>
@@ -26,7 +29,13 @@
 	<tr>
 	<td><input name="usr" type="text" value="{{usuarios['nombre']}}" required="required"/></td>
 	<td><input name="psw" type="password" value="{{usuarios['contrasena']}}" required="required"/></td>
-	<td><input name="tpr" type="text" value="{{usuarios['tipo_roll']}}"/></td>
+	<td>
+        <select name="tpr">
+            {%for tip in tipos %}
+            <option value="{{tip['id_roll']}}">{{tip['nombre']}}</option>
+            {% endfor %}
+        </select>
+    </td>
 	</tr>
 </table>
 </div>
@@ -34,11 +43,9 @@
 <input type="submit" value="modificar" onclick="return validar()"/>
 </form>
 </div>
-<div class="volver" >
+<br>
+<div class="formulario" >
 <a class="lista" href="{{volver}}">Volver</a>
-</div>
-<div class="banner2">
-<a class="lista" href="{{lagg}}">Cerrar sesión</a>
 </div>
 </body>
 </html>

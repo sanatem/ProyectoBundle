@@ -10,7 +10,8 @@
 <title>Ver laboratorios</title>
 </head>
 <body >
-<div>
+<div class="cabecera">
+<a class="lista" href="{{ valueCerrar }}">{{ nameCerrar }}</a>
 </div>
 <div id="titulo">
 <img src="../view/img/bannerPersonalFBA.png" alt="bannerPersonalFBA"/>

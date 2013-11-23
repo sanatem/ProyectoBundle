@@ -9,6 +9,9 @@
 <script src="../libs/validar.js" type="text/javascript"></script>
 </head>
 <body class="laboratorix" onload="esconder()">
+<div class="cabecera">
+<a class="lista" href="{{lagg}}">Cerrar sesión</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerTablas.png" alt="bannerTablas"/>
 </div>
@@ -25,7 +28,7 @@
 </table>
 </div>
 <div class="banner2">
-<table border="">
+<table  border="">
 	<tr>
 	<td class="separados"><p>Nombre</p></td>
 	<td class="separados"><p>Tipo</p></td>
@@ -68,11 +71,13 @@
         <td><input type="submit" value="{{prim}}"/></td>
         </tr>
         </table>
-        </form>
-</div>
-<div class="banner2">
+        <div class="formulario">
 <a class="lista" href="{{logg}}">Volver</a><br>
-<a class="lista" href="{{lagg}}">Cerrar sesión</a>
 </div>
+        </form>
+
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 </body>
 </html>

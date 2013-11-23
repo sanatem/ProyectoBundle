@@ -23,6 +23,11 @@
 						<h3><a href="{{ i['value'] }}">{{ i['name'] }}</a></h3>
 					</li>
 				{% endfor %}
+				{% if soyAdmin| length> 0 %}
+					<li>
+						<h3><a href="{{soyAdmin}}">Volver</a></h3>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 		<div class="barrader">

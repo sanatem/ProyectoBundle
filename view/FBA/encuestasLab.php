@@ -8,6 +8,9 @@
 <title>Encuestas</title>
 </head>
 <body>
+<div class="cabecera">
+<a class="lista" href="{{ valueCerrar }}">{{ nameCerrar }}</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerPersonalFBA.png" alt ="bner"/>
 </div> 
@@ -16,7 +19,13 @@
         	<tr><td class="separados"><p>Encuesta numero</p></td>
                 <td class="separados"><p>Fecha de inicio</p></td>
                 <td class="separados"><p>Fecha de fin </p></td>
-                <td class="separados"><p>Responder </p></td>
+                <td class="separados"><p>Ver encuesta </p></td>
+                <td class="separados"><p>
+                    <form method="POST" action="{{agregar}}" >          
+                                <input type="submit" value="Nueva encuesta"/>
+                    </form></p>
+                </td>
+
             </tr>
             {% for enc in encuestas %}   
                 
@@ -25,25 +34,16 @@
                         <td class="separados"><p> {{ enc['fecha_inicio'] }}</p></td>
                         <td class="separados"><p> {{ enc['fecha_fin'] }} </p></td>        
                         <td class="separados">
-                        <form method="POST" action="{{responder}}" >
+                        <form method="POST" action="{{verEncuesta}}" >
                             <input name="id_encuesta" type="hidden" value=" {{enc['id_encuesta']}}" />
-                            <input type="submit" value="Responder"/>
+                            <input type="submit" value="Ver Encuesta"/>
                         </form>
-                    </td>
+                         </td>
+                   
                 </tr>
                 {% endfor %}
         </table>
-         <form method="POST" action="{{agregar}}" >
-        <table>  
-           <tr>
-            <td>
-                    <td class="separados"><p><input name="fecha_inicio" type="date" /></p></td>
-                    <td class="separados"><p><input name="fecha_fin" type="date" /></p></td>
-                    <td class="separados"><p><input type="submit" value="Agregar"/></p></td>   
-            </tr>  
-        </table>
-        </form>
-         
+            
         </div>
 <div id="navlist">
 <ul>

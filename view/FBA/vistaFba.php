@@ -9,8 +9,9 @@
 <title>Personal de la FBA</title>
 </head>
 <body>
-<div>
+<div class="cabecera">
 <p> {{ bienv }} {{ usuario }} </p>
+<a class="lista" href="{{ raizlogOut }}">{{ cerrar }}</a>
 </div>
 <div id="titulo">
 <img src="../view/img/bannerPersonalFBA.png" alt="baner"/>
@@ -28,10 +29,15 @@
 {% for item in li %}
  <li><a class="lista" href="{{ item['value'] }}">{{ item['name'] }} </a></li>
 {% endfor %}
+{% if soyAdmin| length> 0 %}
+	<li>
+		<a class="lista" href="{{soyAdmin}}">Volver</a>
+	</li>
+{% endif %}
 </ul>
 </div>
 <div class="banner2">
-<a class="lista" href="{{ raizlogOut }}">{{ cerrar }}</a>
+
 </div>
 </body>
 </html>

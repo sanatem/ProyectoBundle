@@ -8,11 +8,13 @@
 <script src="../libs/codigoAdmin.js" type="text/javascript"></script>
 </head>
 <body class="laboratorix" onload="esconder()">
+<div class="cabecera">
+<a href="{{lagg}}">Cerrar sesión</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerTablas.png" alt="bannerTablas.png"/>
 </div>
-<div class="tablaDinamic">
-<table border="">
+<table class="table1" border="">
 	<tr>
 	<td class="separados"><p>Elija tipo de prueba</p></td>
     </tr>
@@ -22,10 +24,8 @@
         </tr>
         {% endfor %}
 </table>
-</div>
-<div class="banner4">
+<div class="formulario">
 <a class="lista" href="{{logg}}">Volver</a><br>
-<a class="lista" href="{{lagg}}">Cerrar sesión</a>
 </div>
 </body>
 </html>

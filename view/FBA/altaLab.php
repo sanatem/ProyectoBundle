@@ -14,7 +14,8 @@ key=AIzaSyCSe8f6EiGWT-ZRzDB2I64ldx4vOwMXTfo&sensor=false">
 <title>Alta laboratorio</title>
 </head>
 <body onload="initialize()" >
-<div>
+<div class="cabecera">
+<a class="lista" href="{{ valueCerrar }}">{{ nameCerrar }}</a>
 </div>
 <div id="titulo">
 <img src="../view/img/bannerPersonalFBA.png" alt="bannerPersonalFBA" >
@@ -176,9 +177,10 @@ key=AIzaSyCSe8f6EiGWT-ZRzDB2I64ldx4vOwMXTfo&sensor=false">
 </tr>
 
 </table>
-
+<table class="tabla">
 <div id="map-canvas">
 </div>
+</table>
 <input type="submit" value="Agregar" >
 </form>
 </div>

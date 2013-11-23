@@ -8,11 +8,14 @@
 <link rel="stylesheet" type="css/text" href="../view/vista.css"/>
 </head>
 <body class="laboratorix">
+<div class="cabecera">
+<a href="{{lagg}}">Cerrar sesión</a>
+</div>
 <div id="titulo">
 <img src="../view/img/bannerAdministracion.png" alt="bannerAdministracion"/>
 </div>
-<div class="tablaDinamic">
-<table border="">
+
+<table class="table1" border="">
 	<tr>
         <td class="separados"><p>Usuario</p></td>
         <td class="separados"><p>Tipo_roll</p></td>
@@ -39,7 +42,11 @@
         {% endfor %}
         </tr>
 </table>
+{% if not error is empty %}
+<div class="formulario">
+        <p>No es posible modificar el usuario con el que usted se encuentra loggeado</p> 
 </div>
+{% endif %}
 <div id="navlist">
 <ul>
 <li class="horizontal"><a class="lista" href="{{raiz}}">Alta Usuario </a></li>
@@ -48,13 +55,6 @@
 <div class="tablaDinamica">
 <a class="lista" href="{{logg}}">Volver</a>
 </div>
-<div class="banner2">
-<a class="lista" href="{{lagg}}">Cerrar sesión</a>
-</div>
-{% if not error is empty %}
-<div>
-        <p>No es posible modificar el usuario con el que usted se encuentra loggeado</p> 
-</div>
-{% endif %}
+
 </body>
 </html>

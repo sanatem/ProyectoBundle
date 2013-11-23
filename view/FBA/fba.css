@@ -6,8 +6,16 @@ body{
 .formulario{
 	text-align: center;
 }
+.cabecera{
+	text-align: left;
+}
 p{color:white;
 	font:caption;
+}
+.separados{
+	text-align: center;
+	 
+	
 }
 #centrado{
 	float:left;
@@ -81,8 +89,7 @@ h3{
 #navlist ul {
     list-style: none;
 }
-.separados{
-}
+
 /*scroll tabla*/
 table {
 	text-align: center;
@@ -133,7 +140,11 @@ tbody td, thead th {
 tbody td:last-child, thead th:last-child {
     border-right: none;
 }
+.tabla{
+	text-align: center;
+}
 #map-canvas{
+
 	width:300px; height:300px;
 }
 /*find de croll de tabla*/
