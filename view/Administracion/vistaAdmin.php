@@ -30,7 +30,7 @@
 	<li><a href="{{raiz}}">Administrar</a></li>
 	<li><a href="{{tablas}}">Tablas de referencia</a></li>
 	<li><a href="{{parteFBA}}">Administrar como FBA</a></li>
-	<li><a href="{{parteLaboratorio}}">Administrar como Laboratorio</a></li>
+	
 	</h4>
 </ul>
 </div>
