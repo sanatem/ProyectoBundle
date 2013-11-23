@@ -94,6 +94,19 @@ function modificarLaboratorio($insti, $codigoLab, $sector, $responsable, $tipoLa
 	 return $res;
  }
 
+ function obtenerPruebaPorId($id) {
+ 	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT * FROM tipo_prueba WHERE id_prueba = :id");
+	 	$query->execute(array('id' => $id));
+	 	$res=$query->fetchAll();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+ }
+
  function obtenerPaises(){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -278,6 +291,20 @@ function obtenerEncuestas(){
 	}
 	return $res;
 }
+function obtenerEncuestasId($idenc){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 $query = $link->prepare("SELECT * FROM encuesta WHERE id_encuesta=:idenc ");
+	 $query->execute(array('idenc' => $idenc ));
+	 $res = $query->fetch();
+	 
+	}else {
+		$res= "error";
+		
+	}
+	return $res;
+
+}
 function nuevaEncuesta($feini,$fefin){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -334,30 +361,19 @@ function obtenerTipoPrueba(){
 	 }
 	 return $res;
 }
-/*function obtenerMetodos($tip){
+function obtenerTipoPruebaId($id){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT * FROM `metodo` WHERE tipo=:tp");
-	 	$query->execute(array('tp' => $tip ));
+	 	$query = $link->prepare("SELECT * 
+								FROM  `tipo_prueba` WHERE id_prueba=:id ");
+	 	$query->execute(array('id'=> $id ));
 	 	$res=$query->fetchAll();
 	 	 
 	 }else {
 	 	$res= "error";
 	 }
 	 return $res;
-}*/
-/*function obtenerReactivos($tip){
-	$link = conectarBaseDatos();
-	if ($link != "error"){
-	 	$query = $link->prepare("SELECT * FROM `reactivo` WHERE tipo = :tp");
-	 	$query->execute(array('tp' => $tip ));
-	 	$res=$query->fetchAll();
-	 	 
-	 }else {
-	 	$res= "error";
-	 }
-	 return $res;
-}*/
+}
 function obtenerCalibradoresyPapelFiltro(){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -394,17 +410,19 @@ function obtenerDecision($tip){
 	 }
 	 return $res;
 }
-function agregarRespuestaEncuesta($met, $ret,$cal,$papel,$intera,$interb,$decisiona,$decisionb,$resul1,$resul2, $id_prueba, $corte, $coment){
+function agregarRespuestaEncuesta($met, $ret,$cal,$papel,$intera,$interb,$decisiona,$decisionb,$resul1,$resul2, $id_prueba, $corte, $coment, $fechin, $fechfin){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$fba=1;
-	 	$query = $link->prepare("INSERT INTO `resultado`(`id_metodo`, `id_reactivo`, `id_calibrador`, `id_papel`,
-	 							 `valor_corte`, `res_control_muestra1`, `res_control_muestra2`,
-	 							  `interpretacion_control_muestra1`, `interpretacion_control_muestra2`,
-	 							   `decision_control_muestra1`, `decision_control_muestra2`,`comentario`, `id_prueba`, `fba`)
-								VALUES (:met,:rea,:cal,:papel,:corte,:resa,:resb,:intea,:inteb,:decia,:decib,:comen,:idpr, :fb)
-								");
-	 	$res=$query->execute(array('met' => $met,
+	 	$query = $link->prepare("INSERT INTO `encuesta`( `fecha_inicio`, `fecha_fin`, `id_metodo`, `id_reactivo`, 
+	 							`id_calibrador`, `id_papel`, `valor_corte`, `res_control_muestra1`, `res_control_muestra2`, 
+	 							`interpretacion_contro_muestra1`, `interpretacion_contro_muestra2`, `comentario`, 
+	 							`decision_control_muestra1`, `decision_control_muestra2`, `id_prueba`) 
+	 							VALUES (:fein,:fefin,:met,:rea,:cal,:papel,:corte,:resa,:resb,:intea,:inteb,:comen,:decia,:decib,:idpr)"
+	 							);
+	 	$res=$query->execute(array( 'fein' => $fechin,
+	 								'fefin' => $fechfin, 
+	 								'met' => $met,
 	 								'rea' => $ret,
 	 								'cal' => $cal,
 	 								'papel' => $papel,
@@ -413,11 +431,10 @@ function agregarRespuestaEncuesta($met, $ret,$cal,$papel,$intera,$interb,$decisi
 	 								'resb' => $resul2,
 	 								'intea' => $intera,
 	 								'inteb' => $interb,
+	 								'comen' => $coment,
 	 								'decia' => $decisiona,
 	 								'decib' => $decisionb,
-	 								'comen' => $coment,
-	 								'idpr' => $id_prueba,
-	 								'fb' => $fba
+	 								'idpr' => $id_prueba
 	 								 ));
 	 	
 	 }else {
@@ -1109,9 +1126,6 @@ function logearse($us, $con) {
 		$res= "error";
 		
 	}
-    print "----";
-    print var_dump($res);
-    print "-----";
 	return $res;
 	
 }
@@ -1209,7 +1223,7 @@ function eliminarUsuario($id_us) {
 	return $res;
 
  }
- //0800101222225
+ 
  function modificarUsuario($usu,$pwd,$rll,$id_us){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -1242,7 +1256,7 @@ function obtenerEncuesta($lab){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 	 	$hoy=date('Y-m-d');
-	 	$query = $link->prepare("SELECT  p.id_prueba, p.nombre, e.fecha_inicio AS fecha_inicio
+	 	$query = $link->prepare("SELECT *
 	 							FROM  `encuesta` AS e 
 	 							INNER JOIN `encuesta_laboratorio` AS el
 	 							INNER JOIN `prueba_laboratorio` AS pl 
@@ -1251,6 +1265,7 @@ function obtenerEncuesta($lab){
 	 							AND el.id_laboratorio = pl.id_laboratorio 
 	 							AND pl.id_prueba = p.id_prueba
 	 							WHERE  pl.id_laboratorio = :lab 
+	 							AND e.id_prueba = p.id_prueba
 	 							AND fecha_inicio <= :hoy 
 	 							AND fecha_fin > :hoy");
 	 	$query->execute(array('lab' => $lab['id_laboratorio'], 'hoy' => $hoy));
@@ -1390,6 +1405,22 @@ function obtenerIdPrueba($prueba){
 	 }
 	 return $res;
 }
+
+function obtenerMetodoPorId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `metodo`
+	 							WHERE  `id_metodo` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
 function obtenerIdMetodo($metodo){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -1405,13 +1436,43 @@ function obtenerIdMetodo($metodo){
 	 return $res;
 }
 
+function obtenerCalibradorPorId($calibrador){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `calibradoresypapeldefiltro`
+	 							WHERE  `id_calibradoresypapel` =:item");
+	 	$query->execute(array('item' => $calibrador));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
 function obtenerIdCalibrador($calibrador){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 	 	$query = $link->prepare("SELECT id_calibradoresypapel
 	 							FROM  `calibradoresypapeldefiltro`
-	 							WHERE  `nombre` = :item AND `tipo` = :tipo");
-	 	$query->execute(array('item' => $calibrador, 'tipo' => 'Calibradores'));
+	 							WHERE  `nombre` =:item");
+	 	$query->execute(array('item' => $calibrador));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
+function obtenerReactivoPorId($reactivo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `reactivo`
+	 							WHERE  `id_reactivo` = :item");
+	 	$query->execute(array('item' => $reactivo ));
 	 	$res=$query->fetch();
 	 	 
 	 }else {
@@ -1435,13 +1496,43 @@ function obtenerIdReactivo($reactivo){
 	 return $res;
 }
 
+function obtenerPapelPorId($papel){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `calibradoresypapeldefiltro`
+	 							WHERE  `id_calibradoresypapel`=:item");
+	 	$query->execute(array('item' => $papel));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
 function obtenerIdPapel($papel){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 	 	$query = $link->prepare("SELECT id_calibradoresypapel
 	 							FROM  `calibradoresypapeldefiltro`
-	 							WHERE  `nombre` = :item AND `tipo` = :tipo");
-	 	$query->execute(array('item' => $papel, 'tipo' => 'PapelDeFiltro'));
+	 							WHERE  `nombre`=:item");
+	 	$query->execute(array('item' => $papel));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
+function obtenerDesicionPorId($decision){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `decision`
+	 							WHERE  `id_decision` = :item");
+	 	$query->execute(array('item' => $decision));
 	 	$res=$query->fetch();
 	 	 
 	 }else {
@@ -1465,6 +1556,21 @@ function obtenerIdDesicion($decision){
 	 return $res;
 }
 
+function obtenerInterpretacionPorId($interpretacion){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT nombre
+	 							FROM  `interpretacion`
+	 							WHERE  `id_interpretacion` = :item");
+	 	$query->execute(array('item' => $interpretacion));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
 function obtenerIdInterpretacion($interpretacion){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -1479,6 +1585,7 @@ function obtenerIdInterpretacion($interpretacion){
 	 }
 	 return $res;
 }
+
 function completarEncuesta($metodoA,$calibradorA,$reactivoA,$papelA,$interpretacion1A,
 								$decision1A,$resultado1A,$interpretacion2A,$decision2A,$resultado2A,
 								$metodoB,$calibradorB,$reactivoB,$papelB,$interpretacion1B,
@@ -1533,7 +1640,7 @@ function completarEncuesta($metodoA,$calibradorA,$reactivoA,$papelA,$interpretac
 }
 function obtenerFecha($encuesta){
 	foreach ($encuesta as $en) {
-		$fecha=$en['2'];
+		$fecha=$en['1'];
 	}
 	return $fecha;
 }
@@ -1544,23 +1651,109 @@ function modLaboratorio($codigo_lab,$institucion,$sector,
 						$correo_electronico,$telefono,$id_us){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-		 $query = $link->prepare("UPDATE `laboratorio`SET `codigo_lab`= :cod,
-		 											 `institucion`= :ins,
-		 											 `sector`= :sec,
-		 											 `responsable`= :res,
-		 											 `domicilio`= :dom,
-		 											 `domicilio_correspondensia`= :domc,
-		 											 `tipo_de_laboratorio`= :tip,
-		 											 `empresa`= :emp,
-		 											 `codigo_postal`= :codp,
-		 											 `correo_electronico`= :cor,
-		 											 `telefono`= :tel
-		 											WHERE `id_usuario`= :Id_us");
-		 $res = $query->execute(array('cod' => $codigo_lab,
-		 							'ins' => $institucion,'sec' => $sector,
-		 							'res' => $responsable,'dom' => $domicilio,
-		 							'domc' => $domicilio_correspondensia,'tip' => $tipo_de_laboratorio,
-		 							'emp' => $empresa,'codp' => $codigo_postal,
-		 							'cor' => $correo_electronico,'tel' => $telefono, 'Id_us' => $id_us ));
+			$query = $link->prepare("UPDATE `laboratorio`SET `codigo_lab`= :cod,
+			 											 `institucion`= :ins,
+			 											 `sector`= :sec,
+			 											 `responsable`= :res,
+			 											 `domicilio`= :dom,
+			 											 `domicilio_correspondensia`= :domc,
+			 											 `tipo_de_laboratorio`= :tip,
+			 											 `empresa`= :emp,
+			 											 `codigo_postal`= :codp,
+			 											 `correo_electronico`= :cor,
+			 											 `telefono`= :tel
+			 											WHERE `id_usuario`= :Id_us");
+			 $res = $query->execute(array('cod' => $codigo_lab,
+			 							'ins' => $institucion,'sec' => $sector,
+			 							'res' => $responsable,'dom' => $domicilio,
+			 							'domc' => $domicilio_correspondensia,'tip' => $tipo_de_laboratorio,
+			 							'emp' => $empresa,'codp' => $codigo_postal,
+			 							'cor' => $correo_electronico,'tel' => $telefono, 'Id_us' => $id_us ));
 }
 }
+
+function verificarExistenciaLab($cod){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT codigo_lab FROM laboratorio where `codigo_lab` = :cod");
+	 	$query->execute(array( 'cod' => $cod)); 
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion();
+	 	 
+	}else {
+	 	$res= "error";
+	}
+	 return $res;
+}
+
+function obtenerMetodoTipoId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT tipo
+	 							FROM  `metodo`
+	 							WHERE  `id_metodo` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+function obtenerReactivoTipoId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT tipo
+	 							FROM  `reactivo`
+	 							WHERE  `id_reactivo` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+function obtenerDecisionTipoId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT tipo
+	 							FROM  `decision`
+	 							WHERE  `id_decision` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+function obtenerInterpretacionTipoId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT tipo
+	 							FROM  `interpretacion`
+	 							WHERE  `id_interpretacion` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+function obtenerCalYPapelTipoId($metodo){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT tipo
+	 							FROM  `calibradoresypapeldefiltro`
+	 							WHERE  `id_calibradoresypapel` = :item");
+	 	$query->execute(array('item' => $metodo ));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
