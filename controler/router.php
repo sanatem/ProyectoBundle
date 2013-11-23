@@ -4,7 +4,7 @@
  * @param type $nombreClase
  */
 function __autoload($nombreClase){
-    $archivo = RAIZ_APLICACION."/model/".$nombreClase.".php";
+    $archivo = "../model/".$nombreClase.".php";
     if(file_exists($archivo)){
         include_once($archivo);
     }  else {
@@ -42,7 +42,7 @@ $metodo = strtolower($datosModelo[1]);
 
 
 //Direccion del archivo que tiene la clase control.
-$destino = RAIZ_APLICACION."/controler/".$claseControl.".php";
+$destino ="../controler/".$claseControl.".php";
 
 
 if(file_exists($destino)){

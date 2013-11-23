@@ -1,4 +1,5 @@
 <?php
+require_once("../libs/validaciones.php");
 require_once("../model/modelo.php");
 require_once("../libs/Twig/Autoloader.php");
 
@@ -8,98 +9,83 @@ class userControler {
 	{
 		return $this;	
 	}
-	
-
-
-
-
 	function login () {
 		$us=$_POST['usuario'];
 		$con=$_POST['contrasena'] ;
-
-		if ( $this->validarlogin($us, $con) ) {
-			$cont=hash('sha256', $con);
-			$usuarios=logearse($us, $cont);
-			
-
-			if ($usuarios != "error" ){
-				
-				if ( isset($usuarios['tipo_roll']) ) {
-					session_start();
-					$_SESSION['estado']="logeado" ;
-					$_SESSION['usuario']=$us;
-					if ( $usuarios['tipo_roll'] == 1 ){
-						$_SESSION['tipo_roll']=1;
-						
-						$templateDir="../view/Administracion";
-						
-						
-//, array("cache" => $templateDirCompi,
-//           ));
-        				
-        				$vista ="vistaAdmin.php";
-//Probemos descomentando el de abajo y comentadno el de arriba
-//$template = $twig->loadTemplate("pruebas.html");
-						$array=array(
-						'raiz' => RAIZ_SITIO.'admin=altasybajas',
-						'tablas' => RAIZ_SITIO.'admin=tablasreferencia',
-						'logg' => RAIZ_SITIO.'user=loginOut',
-						'nombreAdmin' => $_SESSION['usuario']);
-
-					}else {
-					  if ( $usuarios['tipo_roll'] == 2 ){
-							$_SESSION['tipo_roll']=2;
-							$templateDir="../view/FBA";
-							$vista="vistaFba.php" ;
-							$list=array('l1' => array('name' => 'Administrar encuestas','value' => RAIZ_SITIO."Fba=cargarEncuestas"), 
-								'l2' => array('name' => 'Administrar laboratorios','value' => RAIZ_SITIO."Fba=listarLab") 
-								   );
-							$array=array('usuario' => $us,
-									
-									'raizlogOut' => RAIZ_SITIO."user=loginOut",
-									'titulo' => 'Personal FBA',
-									'bienv' => 'Bienvenido',
-									'cerrar' => 'cerrar session',
-									'li' => $list
+		if ((cualquieraDeLasDos($us)) AND (cualquieraDeLasDos($con))){
+			if ( $this->validarlogin($us, $con) ) {
+				$cont=hash('sha256', $con);
+				$usuarios=logearse($us, $cont);
+				if ($usuarios != "error" ){
+					if ( isset($usuarios['tipo_roll']) ) {
+						session_start();
+						$_SESSION['estado']="logeado" ;
+						$_SESSION['usuario']=$us;
+						$_SESSION['id']=$usuarios['id_us'];
+						if ( $usuarios['tipo_roll'] == 1 ){
+							$_SESSION['tipo_roll']=1;
+							$templateDir="../view/Administracion";
+        					$vista ="vistaAdmin.php";
+							$array=array(
+							'raiz' => RAIZ_SITIO.'admin=altasybajas',
+							'tablas' => RAIZ_SITIO.'admin=tablasreferencia',
+							'parteFBA' => RAIZ_SITIO.'admin=cargarFBA',
+							'parteLaboratorio' => RAIZ_SITIO.'admin=cargarLab',
+							'logg' => RAIZ_SITIO.'user=loginOut',
+							'nombreAdmin' => $_SESSION['usuario']);			
+						}else {
+								if ( $usuarios['tipo_roll'] == 2 ){
+									$_SESSION['tipo_roll']=2;
+									$templateDir="../view/FBA";
+									$vista="vistaFba.php" ;
+									$list=array('l1' => array('name' => 'Administrar encuestas','value' => RAIZ_SITIO."Fba=cargarEncuestas"), 
+										'l2' => array('name' => 'Administrar laboratorios','value' => RAIZ_SITIO."Fba=listarLab") 
+								   	);
+									$array=array('usuario' => $us,
+										'raizlogOut' => RAIZ_SITIO."user=loginOut",
+										'titulo' => 'Personal FBA',
+										'bienv' => 'Bienvenido',
+										'cerrar' => 'cerrar session',
+										'li' => $list
 									);
-
-
-						}else{
-							$templateDir="../view/Laboratorio";
-							$_SESSION['tipo_roll']=3;
-							$_SESSION['nombre']=$usuarios['nombre'];
-							$_SESSION['id']=$usuarios['id_us'];
-							$list=array('l1' => array('name' => 'Encuestas','value' => RAIZ_SITIO."Laboratorio=irEncuesta"), 
-								'l2' => array('name' => 'Informes','value' => RAIZ_SITIO."Laboratorio=irInforme"), 
-								'l3' => array('name' => 'Modificar datos','value' => RAIZ_SITIO."Laboratorio=irModificar"));
-							$array = array('list' => $list, 
-											'cerrar_sesion' => RAIZ_SITIO."User=loginOut", 
-											'contenido' => 'Bienvenido al Área de Laboratorio. En este sitio podrá ver las encuestas disponibles, cargar los resultados de cada encuesta y visualizar su informe particular y aquellos que sean de dominio público.', 
-											'user_name' => $_SESSION['nombre'], 
-											'id_user' => $_SESSION['id']);
-							$vista="vistaLaboratorio.php";
-						}
-					}
-
-				}else {
-					//no se encontro en la base de datos
+								}else{
+									$templateDir="../view/Laboratorio";
+									$_SESSION['tipo_roll']=3;
+									$_SESSION['nombre']=$usuarios['nombre'];
+									$_SESSION['id']=$usuarios['id_us'];
+									$list=array('l1' => array('name' => 'Encuestas','value' => RAIZ_SITIO."Laboratorio=irEncuesta"), 
+										'l2' => array('name' => 'Informes','value' => RAIZ_SITIO."Laboratorio=irInforme"), 
+										'l3' => array('name' => 'Modificar datos','value' => RAIZ_SITIO."Laboratorio=irModificar"));
+									$array = array('list' => $list, 
+										'cerrar_sesion' => RAIZ_SITIO."User=loginOut", 
+										'contenido' => 'Bienvenido al Área de Laboratorio. En este sitio podrá ver las encuestas disponibles, cargar los resultados de cada encuesta y visualizar su informe particular y aquellos que sean de dominio público.', 
+										'user_name' => $_SESSION['nombre'], 
+										'id_user' => $_SESSION['id']);
+									$vista="vistaLaboratorio.php";
+								}
+							}
+					}else {
 					$templateDir="../view";
 					$vista="login.php";
-					$array=array('error' => 'usuario y contraseña erronea'  );
+					$array=array('error' => 'Usuario o Contraseña erronea'  );
 				}
-
-			} else{
-			//Error en la base de datos
-			$templateDir="../view";
-			$vista= "vistasError.php";
-			$array=array('' => ''  );
-			}
-		} else {
+				} else{
+					$templateDir="../view";
+					$vista= "vistasError.php";
+					$array=array('' => ''  );
+				}
+			} else {
 			//Campos mal completados
-			$templateDir="../view";
-			$vista="vistasError.php" ;
-			$array=array('' => ''  );
+				$templateDir="../view";
+				$vista="vistasError.php" ;
+				$array=array('' => ''  );
 			}
+		}
+		else {
+			$templateDir="../view";
+			$vista="login.php";
+			$array=array('error' => 'Ingrese caracteres validos (alfanumericos)');
+		}
 		Twig_Autoloader::register();
 		
 		$loader = new Twig_Loader_Filesystem($templateDir);

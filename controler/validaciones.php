@@ -37,4 +37,13 @@ else {
 return false;
 }
 }
+
+function minimoUnaLetra($cadena1){
+	if (preg_match("/^[a-zA-Z]+/",$cadena1)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 ?>

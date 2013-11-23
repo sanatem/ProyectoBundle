@@ -6,6 +6,46 @@ Twig_Autoloader::register();
 require_once("../model/modelo.php");
 require_once("../libs/validarsesion.php");
 class adminControler {
+	function cargarLab(){
+	if (validarsesion($this->id())){
+		$templateDir="../view/Laboratorio";
+		$vista="vistaLaboratorio.php";
+		$list=array('l1' => array('name' => 'Encuestas','value' => RAIZ_SITIO."Laboratorio=irEncuesta"), 
+		'l2' => array('name' => 'Informes','value' => RAIZ_SITIO."Laboratorio=irInforme"), 
+		'l3' => array('name' => 'Modificar datos','value' => RAIZ_SITIO."Laboratorio=irModificar"));
+		$array = array('list' => $list, 
+			'cerrar_sesion' => RAIZ_SITIO."User=loginOut", 
+			'contenido' => 'Bienvenido al Área de Laboratorio. En este sitio podrá ver las encuestas disponibles, cargar los resultados de cada encuesta y visualizar su informe particular y aquellos que sean de dominio público.', 
+			'user_name' => $_SESSION['usuario'],
+			'soyAdmin' => RAIZ_SITIO."admin=volverLogging",
+			'id_user' => $_SESSION['id']);
+			$vista="vistaLaboratorio.php";
+		$this ->cargarTemplate($templateDir,$vista,$array);
+	}
+	else 
+		echo "No tiene permiso a acceder a esta area";
+	}
+	function cargarFba(){
+	if (validarsesion($this->id())){
+		$us=$_SESSION['usuario'];
+		$templateDir="../view/FBA";
+		$vista="vistaFba.php" ;
+		$list=array('l1' => array('name' => 'Administrar encuestas','value' => RAIZ_SITIO."Fba=cargarEncuestas"), 
+		'l2' => array('name' => 'Administrar laboratorios','value' => RAIZ_SITIO."Fba=listarLab") 
+		);
+		$array=array('usuario' => $us,	
+			'raizlogOut' => RAIZ_SITIO."user=loginOut",
+			'titulo' => 'Personal FBA',
+			'bienv' => 'Bienvenido',
+			'soyAdmin' => RAIZ_SITIO."admin=volverLogging",
+			'cerrar' => 'cerrar session',
+			'li' => $list
+		);
+		$this ->cargarTemplate($templateDir,$vista,$array);
+	}
+	else 
+		echo "No tiene permitido el acceso a esta area";
+	}
 	function cargarTemplate($dir,$view,$variables){
 			$templateDir=$dir;
 			$loader = new Twig_Loader_Filesystem($templateDir);
@@ -322,12 +362,14 @@ class adminControler {
 				$usuario=obtenerUsuario($id_us);
 				if ($usuario){
 					if (!($usuario['nombre']==$_SESSION['usuario'])){
+						$tipos=obtenerTipos();
 						$templateDir="../view/Administracion";
    		    			$vista="cargarBajas.php";
 						$variables=array(
 							'modificar' => RAIZ_SITIO.'admin=modificar',
 							'usuarios' => $usuario,
-							'volver'=> RAIZ_SITIO.'admin=altasybajas');
+							'volver'=> RAIZ_SITIO.'admin=altasybajas',
+							'tipos' => $tipos);
 						$this->cargarTemplate($templateDir,$vista,$variables);
 
 					}
@@ -394,7 +436,12 @@ class adminControler {
 			$roll=$_POST['tpr'];
 			if ((cualquieraDeLasDos($pass)) AND (cualquieraDeLasDos($nombre)) AND (soloDigitos($roll))){
 				$id_us=$_POST['iduser'];
-				$password=hash('sha256', $pass);
+				$datosUsuario=obtenerUsuario($id_us);
+				if (!($pass==$datosUsuario['contrasena'])){
+					 $password=hash('sha256', $pass);
+				}
+				else
+				$password=$pass;
 				$usuario=modificarUsuario($nombre,$password,$roll,$id_us);
 				if ($usuario){
 					$templateDir="../view/Administracion";
@@ -423,6 +470,7 @@ class adminControler {
 				}	
 				else {
 					echo "<p>Error en la validacion de los datos</p>";
+					echo "<p>".$roll."</p>";
 					$templateDir="../view/Administracion";
    					$vista="vistaAltasyBajas.php";
    	    			$usuarios=obtenerUsuarios();
@@ -453,10 +501,12 @@ class adminControler {
 			$templateDir="../view/Administracion";
    		    $vista="vistaAdmin.php";
 			$variables=array(
-				'raiz' => RAIZ_SITIO.'admin=altasybajas',
-				'tablas'=> RAIZ_SITIO.'admin=tablasreferencia',
-				'logg' => RAIZ_SITIO.'user=loginOut',
-				'nombreAdmin' => $_SESSION['usuario']);
+							'raiz' => RAIZ_SITIO.'admin=altasybajas',
+							'tablas' => RAIZ_SITIO.'admin=tablasreferencia',
+							'parteFBA' => RAIZ_SITIO.'admin=cargarFBA',
+							'parteLaboratorio' => RAIZ_SITIO.'admin=cargarLab',
+							'logg' => RAIZ_SITIO.'user=loginOut',
+							'nombreAdmin' => $_SESSION['usuario']);
 			$this->cargarTemplate($templateDir,$vista,$variables);
 		}
 		else{
@@ -658,8 +708,12 @@ class adminControler {
 		if ((minimoUnaLetra($nom)) AND (soloDigitos($cod)) AND (soloLetras($tip))){
 		switch ($iterar) {
 			case 'Metodo':
-					$prueba=verificarExistenciaMetodo($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandouno=obtenerMetodoPorId($id);
+					$probandotres=obtenerMetodoTipoId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaMetodo($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un metodo existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -667,8 +721,12 @@ class adminControler {
 					}
 				break;
 			case 'Reactivo':
-					$prueba=verificarExistenciaReactivo($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandouno=obtenerReactivoPorId($id);
+					$probandotres=obtenerReactivoTipoId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaReactivo($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un reactivo existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -676,8 +734,12 @@ class adminControler {
 					}
 				break;
 			case 'Decision':
-					$prueba=verificarExistenciaDecision($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandouno=obtenerDesicionPorId($id);
+					$probandotres=obtenerDecisionTipoId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaDecision($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un decision existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -685,8 +747,12 @@ class adminControler {
 					}
 				break;
 			case 'Interpretacion':
-					$prueba=verificarExistenciaInterpretacion($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandouno=obtenerInterpretacionPorId($id);
+					$probandotres=obtenerInterpretacionTipoId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaInterpretacion($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un interpretacion existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -694,8 +760,12 @@ class adminControler {
 					}
 				break;
 			case 'Calibradores':
-					$prueba=verificarExistenciaCalibrador($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandotres=obtenerCalYPapelTipoId($id);
+					$probandouno=obtenerCalibradorPorId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaCalibrador($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un calibrador existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -703,8 +773,12 @@ class adminControler {
 					}
 				break;
 			case 'PapelDeFiltro':
-					$prueba=verificarExistenciaPapelDeFiltro($nom,$tip);
-					if (isset($prueba['nombre'])){
+					$probandotres=obtenerCalYPapelTipoId($id);
+					$probandouno=obtenerPapelPorId($id);
+					if (($probandouno[0]!=$nom) OR ($probandotres[0]!=$tip)){
+						$pruebados=verificarExistenciaPapelDeFiltro($nom,$tip);
+					}
+					if (isset($pruebados['nombre'])){
 						echo "<p>Se encuentra un papel de filtro existente para la misma prueba con dicho nombre en la base de datos</p>";
 					}
 					else{
@@ -715,7 +789,7 @@ class adminControler {
 					echo "error";
 				break;
 			}
-			if (!isset($verificacion) AND (!isset($prueba))){
+			if (!isset($verificacion) AND (!isset($pruebados))){
 					echo "<p>error en la base de datos</p>";
 			}
 			else {
