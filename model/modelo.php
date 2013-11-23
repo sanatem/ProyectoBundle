@@ -1109,6 +1109,9 @@ function logearse($us, $con) {
 		$res= "error";
 		
 	}
+    print "----";
+    print var_dump($res);
+    print "-----";
 	return $res;
 	
 }
