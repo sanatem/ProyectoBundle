@@ -1590,7 +1590,7 @@ function completarEncuesta($metodoA,$calibradorA,$reactivoA,$papelA,$interpretac
 								$decision1A,$resultado1A,$interpretacion2A,$decision2A,$resultado2A,
 								$metodoB,$calibradorB,$reactivoB,$papelB,$interpretacion1B,
 								$decision1B,$resultado1B,$interpretacion2B,$decision2B,$resultado2B,
-								$fechaAnalisis,$comentario,$cutA,$cutB,$pruebaA, $pruebaB,$fecha_inicio){
+								$fechaAnalisis,$comentario,$cutA,$cutB,$pruebaA, $pruebaB,$fecha_inicio,$id){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$hoy=date('Y-m-d');
@@ -1608,12 +1608,12 @@ function completarEncuesta($metodoA,$calibradorA,$reactivoA,$papelA,$interpretac
 		$query = $link->prepare("INSERT INTO `resultado` (`fecha_recepcion`, `fecha_analisis`, `fecha_ingreso`, `id_metodo`, `id_reactivo`,
 		 							`id_calibrador`, `id_papel`, `valor_corte`, `res_control_muestra1`, `res_control_muestra2`,
 		 							 `interpretacion_control_muestra1`, `interpretacion_control_muestra2`, `decision_control_muestra1`, `decision_control_muestra2`, 
-		 							 `comentario`, `id_prueba`, `fba` )
+		 							 `comentario`, `id_prueba`, `fba`,`id_usuario` )
 		 						 VALUES (:fre, :fa, :fi, :im, :ir, :ic, :ip, :vc, :rcm1, :rcm2, :icm1, :icm2,
-		 						 	:dcm1, :dcm2, :com, :idp, :fba )");
+		 						 	:dcm1, :dcm2, :com, :idp, :fba, :id )");
 		 $res = $query->execute(array('im' => $metodo[0],'ic' => $calibrador[0],'ir' => $reactivo[0],'ip' => $papel[0],'icm1' => $interpretacion1[0],
 								'dcm1' => $decision1[0],'rcm1' => $resultado1A,'icm2' => $interpretacion2[0],'dcm2' => $decision2[0],'rcm2' =>$resultado2A,
-								'fa' => $fechaAnalisis,'com' => $comentario, 'fre' => $fecha_inicio,'fi' => $hoy, 'vc' => $cutA, 'idp' => $id_prueba[0], 'fba' => "0"));
+								'fa' => $fechaAnalisis,'com' => $comentario, 'fre' => $fecha_inicio,'fi' => $hoy, 'vc' => $cutA, 'idp' => $id_prueba[0], 'fba' => "0", 'id' => $id));
 		
 		$id_prueba=obtenerIdPrueba($pruebaB);
 		$metodo = obtenerIdMetodo($metodoB);
@@ -1628,13 +1628,13 @@ function completarEncuesta($metodoA,$calibradorA,$reactivoA,$papelA,$interpretac
 		$query = $link->prepare("INSERT INTO `resultado` (`fecha_recepcion`, `fecha_analisis`, `fecha_ingreso`, `id_metodo`, `id_reactivo`,
 		 							`id_calibrador`, `id_papel`, `valor_corte`, `res_control_muestra1`, `res_control_muestra2`,
 		 							 `interpretacion_control_muestra1`, `interpretacion_control_muestra2`, `decision_control_muestra1`, `decision_control_muestra2`, 
-		 							 `comentario`, `id_prueba`, fba )
+		 							 `comentario`, `id_prueba`, `fba`,`id_usuario` )
 		 						 VALUES (:fre, :fa, :fi, :im, :ir, :ic, :ip, :vc, :rcm1, :rcm2, :icm1, :icm2,
-		 						 	:dcm1, :dcm2, :com, :idp, :fba )");
+		 						 	:dcm1, :dcm2, :com, :idp, :fba, :id )");
 		 $res = $query->execute(array('im' => $metodo[0],'ic' => $calibrador[0],'ir' => $reactivo[0],'ip' => $papel[0],'icm1' => $interpretacion1[0],
-								'dcm1' => $decision1[0],'rcm1' => $resultado1B,'icm2' => $interpretacion2[0],'dcm2' => $decision2[0],'rcm2' =>$resultado2B,
-								'fa' => $fechaAnalisis,'com' => $comentario, 'fre' => $fecha_inicio,'fi' => $hoy, 'vc' => $cutB, 'idp' => $id_prueba[0], 'fba' => "0"));						
-
+								'dcm1' => $decision1[0],'rcm1' => $resultado1A,'icm2' => $interpretacion2[0],'dcm2' => $decision2[0],'rcm2' =>$resultado2A,
+								'fa' => $fechaAnalisis,'com' => $comentario, 'fre' => $fecha_inicio,'fi' => $hoy, 'vc' => $cutA, 'idp' => $id_prueba[0], 'fba' => "0", 'id' => $id));
+		
 
 }
 }
@@ -1757,3 +1757,34 @@ function obtenerCalYPapelTipoId($metodo){
 	 return $res;
 }
 
+function obtenerResultados($id){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT *
+								FROM  `resultado` AS r
+								INNER JOIN  `tipo_prueba` AS p
+								WHERE r.id_prueba = p.id_prueba
+								AND r.id_usuario = :id");
+	 	$query->execute(array('id' => $id));
+	 	$res=$query->fetchALL();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+
+function obtenerResultado($id_resultado){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT *
+								FROM  `resultado` 
+								WHERE id_resultado = :id");
+	 	$query->execute(array('id' => $id_resultado));
+	 	$res=$query->fetch();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}

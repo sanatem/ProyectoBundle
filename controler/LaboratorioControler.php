@@ -10,7 +10,41 @@ class LaboratorioControler {
 		return 3;
 	}
 
-	function irEncuesta() {
+	function irEncuesta(){
+		if ( validarsesion($this->id())){
+
+			$resultados=obtenerResultados($_SESSION['id']);
+
+			if( (isset($_SESSION['id'])) & (isset($resultados)) ){
+				require_once("../libs/Twig/Autoloader.php");
+				Twig_Autoloader::register();
+
+				$templateDir="../view/Laboratorio";
+
+				$loader = new Twig_Loader_Filesystem($templateDir);
+
+				$twig = new Twig_Environment($loader);
+				            
+				$template = $twig->loadTemplate("vistaEncuesta.php");
+
+				$template->display(array('titulo' => '../view/img/bannerEncuesta.png', 
+										'subtitulo' => array('Nueva encuesta', 'Encuestas resueltas:'),
+										'contenido' => $resultados,
+										'accion' => 'Ver',
+										'link0' => RAIZ_SITIO.'Laboratorio=irNuevaEncuesta',
+										'link1' => RAIZ_SITIO.'Laboratorio=irResultados',
+										'cerrar_sesion' => RAIZ_SITIO."User=loginOut",
+										'volver' => RAIZ_SITIO.'Laboratorio=volverLogging',
+										'user_name' => $_SESSION['nombre'],
+										'id_user' => $_SESSION['id'],
+										'tipo_roll' => $_SESSION['tipo_roll']));
+			}else{echo "DATOS ERRONEOS";}
+
+		}else{echo "ACCESO DENEGADO";}
+
+	}
+
+	function irNuevaEncuesta() {
 		if ( validarsesion($this->id())){
 		$encuestas = array();
 		$lab = obtenerLaboratorioPorId($_SESSION['id']);
@@ -56,7 +90,7 @@ class LaboratorioControler {
 
 		$twig = new Twig_Environment($loader);
 		            
-		$template = $twig->loadTemplate("vistaEncuesta.php");
+		$template = $twig->loadTemplate("vistaNuevaEncuesta.php");
 		
 		$template->display(array('titulo' => '../view/img/bannerEncuesta.png', 
 								'tipo_prueba' => $nombres,
@@ -107,7 +141,7 @@ class LaboratorioControler {
 								$_POST['desicion1A'],$_POST['resultado1A'],$_POST['interpretacion2A'],$_POST['desicion2A'],$_POST['resultado2A'],
 								$_POST['metodoB'],$_POST['calibradorB'],$_POST['reactivoB'],$_POST['papelB'],$_POST['interpretacion1B'],
 								$_POST['desicion1B'],$_POST['resultado1B'],$_POST['interpretacion2B'],$_POST['desicion2B'],$_POST['resultado2B'],
-								$_POST['fechaAnalisis'],$_POST['comentario'],$_POST['cutA'],$_POST['cutB'],$_POST['pruebaA'],$_POST['pruebaB'],$_POST['fecha_inicio']);
+								$_POST['fechaAnalisis'],$_POST['comentario'],$_POST['cutA'],$_POST['cutB'],$_POST['pruebaA'],$_POST['pruebaB'],$_POST['fecha_inicio'],$_SESSION['id']);
 		require_once("../libs/Twig/Autoloader.php");
 		Twig_Autoloader::register();
 		$templateDir="../view/Laboratorio";
@@ -128,7 +162,53 @@ class LaboratorioControler {
 	}else{echo "ACCESO DENEGADO";}
 	}
 
+	function irResultados(){
+		if ( validarsesion($this->id()) ){
 
+			$resultado=obtenerResultado($_POST['id_resultado']);
+
+			$metodo=obtenerMetodoPorId($resultado['id_metodo']);
+			$calibrador=obtenerCalibradorPorId($resultado['id_calibrador']);
+			$reactivo=obtenerReactivoPorId($resultado['id_reactivo']);
+			$papel=obtenerPapelPorId($resultado['id_papel']);
+			$interpretacion=array(obtenerInterpretacionPorId($resultado['interpretacion_control_muestra1']),
+									obtenerInterpretacionPorId($resultado['interpretacion_control_muestra2']));
+			$desicion=array(obtenerDesicionPorId($resultado['decision_control_muestra1']), 
+							obtenerDesicionPorId($resultado['decision_control_muestra2']));
+
+			if( (isset($_SESSION['id'])) & isset($metodo) & isset($calibrador) & isset($reactivo)
+				& isset($papel) & isset($interpretacion) & isset($desicion) ){
+				require_once("../libs/Twig/Autoloader.php");
+				Twig_Autoloader::register();
+
+				$templateDir="../view/Laboratorio";
+
+				$loader = new Twig_Loader_Filesystem($templateDir);
+
+				$twig = new Twig_Environment($loader);
+				            
+				$template = $twig->loadTemplate("vistaResultado.php");
+
+				$template->display(array('titulo' => '../view/img/bannerEncuesta.png', 
+										'contenido' => $resultado,
+										'metodo' => $metodo,
+										'calibrador' => $calibrador,
+										'reactivo' => $reactivo,
+										'papel' => $papel,
+										'interpretacion' => $interpretacion,
+										'desicion' => $desicion,
+										'inputs' => array('Cut off (mg/dl):'),
+										'campos' => array('Control#:', 'Resultado:', 'Interpretación:', 'Desición:'),
+										'datos' => array('l1' => array('Control#' => '91', 'Resultado' => 'mg/dl'), 
+														'l2' => array('Control#' => '92', 'Resultado' => 'mg/dl')),
+										'cerrar_sesion' => RAIZ_SITIO."User=loginOut",
+										'volver' => RAIZ_SITIO.'Laboratorio=volverLogging',
+										'user_name' => $_SESSION['nombre'],
+										'id_user' => $_SESSION['id'],
+										'tipo_roll' => $_SESSION['tipo_roll']));
+			}else{echo "DATOS ERRONEOS";}
+		}else{echo "ACCESO DENEGADO";}
+	}
 
 	function irInforme() {
 		if ( validarsesion($this->id()) ){
