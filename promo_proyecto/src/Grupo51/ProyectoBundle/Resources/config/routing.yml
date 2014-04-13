@@ -1,0 +1,3 @@
+grupo51_proyecto_homepage:
+    pattern:  /
+    defaults: { _controller: Grupo51ProyectoBundle:Default:index }

@@ -1,0 +1,7 @@
+parameters:
+#    grupo51_proyecto.example.class: Grupo51\ProyectoBundle\Example
+
+services:
+#    grupo51_proyecto.example:
+#        class: %grupo51_proyecto.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
