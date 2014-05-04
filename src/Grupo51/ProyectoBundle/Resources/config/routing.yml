@@ -1,7 +1,7 @@
 grupo51_proyecto_homepage:
     pattern:  /
     defaults: { _controller: Grupo51ProyectoBundle:Default:index }
-#HomePage de nuestro proyecto
-grupo51_proyecto_homepage:
+
+grupo51_proyecto_home:
     pattern:  /home
     defaults: { _controller: Grupo51ProyectoBundle:User:home }
