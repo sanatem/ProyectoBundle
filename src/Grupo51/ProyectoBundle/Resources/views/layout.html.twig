@@ -2,6 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+       <title> {% block title %}{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <div>
@@ -11,7 +13,7 @@
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
             {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+          <!--      <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>-->
             {% endif %}
         </div>
 
@@ -25,6 +27,10 @@
 
         <div>
             {% block fos_user_content %}
+            {% block login %}
+            {% endblock %}
+            {% block register %}
+            {% endblock %}
             {% endblock fos_user_content %}
         </div>
     </body>

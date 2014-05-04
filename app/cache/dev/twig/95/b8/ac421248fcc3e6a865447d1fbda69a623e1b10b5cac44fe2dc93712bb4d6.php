@@ -10,7 +10,11 @@ class __TwigTemplate_95b8ac421248fcc3e6a865447d1fbda69a623e1b10b5cac44fe2dc93712
         $this->parent = false;
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
+            'stylesheets' => array($this, 'block_stylesheets'),
             'fos_user_content' => array($this, 'block_fos_user_content'),
+            'login' => array($this, 'block_login'),
+            'register' => array($this, 'block_register'),
         );
     }
 
@@ -21,54 +25,62 @@ class __TwigTemplate_95b8ac421248fcc3e6a865447d1fbda69a623e1b10b5cac44fe2dc93712
 <html>
     <head>
         <meta charset=\"UTF-8\" />
-    </head>
+       <title> ";
+        // line 5
+        $this->displayBlock('title', $context, $blocks);
+        echo "</title>
+        ";
+        // line 6
+        $this->displayBlock('stylesheets', $context, $blocks);
+        // line 7
+        echo "    </head>
     <body>
         <div>
             ";
-        // line 8
+        // line 10
         if ($this->env->getExtension('security')->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
-            // line 9
+            // line 11
             echo "                ";
             echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("layout.logged_in_as", array("%username%" => $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user"), "username")), "FOSUserBundle"), "html", null, true);
             echo " |
                 <a href=\"";
-            // line 10
+            // line 12
             echo $this->env->getExtension('routing')->getPath("fos_user_security_logout");
             echo "\">
                     ";
-            // line 11
+            // line 13
             echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("layout.logout", array(), "FOSUserBundle"), "html", null, true);
             echo "
                 </a>
             ";
         } else {
-            // line 14
-            echo "                <a href=\"";
+            // line 16
+            echo "          <!--      <a href=\"";
             echo $this->env->getExtension('routing')->getPath("fos_user_security_login");
             echo "\">";
             echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("layout.login", array(), "FOSUserBundle"), "html", null, true);
-            echo "</a>
+            echo "</a>-->
             ";
         }
-        // line 16
+        // line 18
         echo "        </div>
 
         ";
-        // line 18
+        // line 20
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session"), "flashbag"), "all", array(), "method"));
         foreach ($context['_seq'] as $context["type"] => $context["messages"]) {
-            // line 19
+            // line 21
             echo "            ";
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["messages"]) ? $context["messages"] : $this->getContext($context, "messages")));
             foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-                // line 20
+                // line 22
                 echo "                <div class=\"flash-";
                 echo twig_escape_filter($this->env, (isset($context["type"]) ? $context["type"] : $this->getContext($context, "type")), "html", null, true);
                 echo "\">
                     ";
-                // line 21
+                // line 23
                 echo twig_escape_filter($this->env, (isset($context["message"]) ? $context["message"] : $this->getContext($context, "message")), "html", null, true);
                 echo "
                 </div>
@@ -77,29 +89,59 @@ class __TwigTemplate_95b8ac421248fcc3e6a865447d1fbda69a623e1b10b5cac44fe2dc93712
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 24
+            // line 26
             echo "        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['type'], $context['messages'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 25
+        // line 27
         echo "
         <div>
             ";
-        // line 27
-        $this->displayBlock('fos_user_content', $context, $blocks);
         // line 29
+        $this->displayBlock('fos_user_content', $context, $blocks);
+        // line 35
         echo "        </div>
     </body>
 </html>
 ";
     }
 
-    // line 27
+    // line 5
+    public function block_title($context, array $blocks = array())
+    {
+    }
+
+    // line 6
+    public function block_stylesheets($context, array $blocks = array())
+    {
+    }
+
+    // line 29
     public function block_fos_user_content($context, array $blocks = array())
     {
-        // line 28
+        // line 30
+        echo "            ";
+        $this->displayBlock('login', $context, $blocks);
+        // line 32
+        echo "            ";
+        $this->displayBlock('register', $context, $blocks);
+        // line 34
+        echo "            ";
+    }
+
+    // line 30
+    public function block_login($context, array $blocks = array())
+    {
+        // line 31
+        echo "            ";
+    }
+
+    // line 32
+    public function block_register($context, array $blocks = array())
+    {
+        // line 33
         echo "            ";
     }
 
@@ -115,6 +157,6 @@ class __TwigTemplate_95b8ac421248fcc3e6a865447d1fbda69a623e1b10b5cac44fe2dc93712
 
     public function getDebugInfo()
     {
-        return array (  103 => 28,  100 => 27,  93 => 29,  91 => 27,  87 => 25,  81 => 24,  62 => 19,  58 => 18,  54 => 16,  40 => 11,  36 => 10,  29 => 8,  20 => 1,  72 => 21,  67 => 20,  60 => 16,  55 => 14,  51 => 13,  46 => 14,  42 => 10,  39 => 9,  33 => 7,  31 => 9,  28 => 5,);
+        return array (  145 => 33,  142 => 32,  138 => 31,  135 => 30,  131 => 34,  128 => 32,  125 => 30,  122 => 29,  117 => 6,  103 => 29,  99 => 27,  93 => 26,  79 => 22,  74 => 21,  66 => 18,  58 => 16,  52 => 13,  48 => 12,  41 => 10,  36 => 7,  34 => 6,  30 => 5,  24 => 1,  112 => 5,  105 => 35,  101 => 29,  96 => 27,  89 => 23,  84 => 23,  80 => 20,  75 => 18,  70 => 20,  67 => 16,  63 => 33,  61 => 16,  55 => 14,  53 => 13,  50 => 12,  43 => 11,  40 => 8,  35 => 5,  32 => 4,);
     }
 }
