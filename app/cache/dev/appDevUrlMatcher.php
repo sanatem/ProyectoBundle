@@ -146,7 +146,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // grupo51_proyecto_home
         if ($pathinfo === '/home') {
-            return array (  '_controller' => 'Grupo51ProyectoBundle:User:home',  '_route' => 'grupo51_proyecto_home',);
+            return array (  '_controller' => 'Grupo51\\ProyectoBundle\\Controller\\UserController::homeAction',  '_route' => 'grupo51_proyecto_home',);
         }
 
         if (0 === strpos($pathinfo, '/log')) {

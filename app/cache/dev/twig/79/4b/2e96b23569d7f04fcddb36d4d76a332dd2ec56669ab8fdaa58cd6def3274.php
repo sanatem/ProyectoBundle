@@ -185,6 +185,7 @@ class __TwigTemplate_794b2e96b23569d7f04fcddb36d4d76a332dd2ec56669ab8fdaa58cd6de
             </td>
             </tr>
             </table>
+            <input type=\"hidden\" id=\"fos_user_registration_form__token\" name=\"fos_user_registration_form[_token]\" value=\"ZIltcyVhUQX8JPdGWOGCmBwlYcwNCFF35hcVWfM3BsE\">
             </form>
         </div>
 

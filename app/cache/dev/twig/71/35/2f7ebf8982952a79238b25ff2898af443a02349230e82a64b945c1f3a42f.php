@@ -52,7 +52,7 @@ class __TwigTemplate_71352f7ebf8982952a79238b25ff2898af443a02349230e82a64b945c1f
     // line 5
     public function block_title($context, array $blocks = array())
     {
-        echo "Welcome!";
+        echo "Welcome";
     }
 
     // line 6
@@ -82,6 +82,6 @@ class __TwigTemplate_71352f7ebf8982952a79238b25ff2898af443a02349230e82a64b945c1f
 
     public function getDebugInfo()
     {
-        return array (  69 => 11,  64 => 10,  59 => 6,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  29 => 5,  23 => 1,  61 => 12,  56 => 11,  53 => 5,  46 => 7,  43 => 6,  40 => 5,  33 => 6,  30 => 2,);
+        return array (  69 => 11,  64 => 10,  59 => 6,  53 => 5,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
     }
 }

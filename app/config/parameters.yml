@@ -1,14 +1,14 @@
-# This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: grupo510
-    database_user: juan
-    database_password: 1234
+    database_name: grupo51
+    database_user: root
+    database_password: null
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     locale: es
     secret: 320053892f49b840e177be184251954c17524fc8
+    database_path: null
