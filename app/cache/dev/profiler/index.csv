@@ -105,3 +105,7 @@ e93111,::1,GET,http://localhost/promo_proyecto/web/app_dev.php/login,1397430540,
 f22781,::1,GET,http://localhost/promo_proyecto/web/app_dev.php/login,1397430551,
 5a94b0,::1,GET,http://localhost/promo_proyecto/web/app_dev.php/logout,1397430557,2369b5
 2369b5,::1,GET,http://localhost/promo_proyecto/web/app_dev.php/logout,1397430557,
+e06df6,::1,GET,http://localhost/ProyectoBundle/web/app_dev.php/,1399227450,
+54db8b,::1,GET,http://localhost/ProyectoBundle/web/app_dev.php/login,1399227452,
+ca0b7c,::1,GET,http://localhost/ProyectoBundle/web/app_dev.php/_configurator/,1399228390,
+94e504,::1,GET,http://localhost/ProyectoBundle/web/app_dev.php/_configurator/step/0,1399228393,
