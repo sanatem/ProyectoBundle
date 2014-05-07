@@ -9,69 +9,73 @@ Welcome
 <link rel="stylesheet" type="text/css" href="{{asset('bootstrap/css/bootstrap.css')}}">
 {% endblock %}
 
+
 {% block fos_user_content %}
-{% if error %}
-    <div>{{ error|trans }}</div>
-{% endif %}
-{% block login %}
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Proyecto de Software</a>
-    </div>
+  
+    {% block login %}
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-      <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" method="POST">
-            <div class="form-group">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        <script type="text/javascript">
+            location.href="{{ path('grupo51_proyecto_home') }}";
+        </script>
 
-                <label for="username">{{ 'security.login.username'|trans }}</label>
-                <input type="text" id="username"  class="form-control" placeholder="Usuario" name="_username" value="{{ last_username }}" required="required" />
-
-                <label for="password">{{ 'security.login.password'|trans }}</label>
-                <input type="password" class="form-control" placeholder="Password" id="password" name="_password" required="required" />
-
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-
-                <input type="submit"  id="_submit" class="btn btn-default" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-                <input type="hidden" name="_target_path" value="{{'grupo51_proyecto_home'}}" />
-            </div>
-        </form>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-{% endblock %}
-
-
-{% block register %}
-  <div class="row">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-            <h3><span class="label label-info">¿No tienes cuenta?, Registrate!</span></h3> 
-            <table class="table table-condensed">
-            <tr>
-            <td>
-                <label>{% render url('fos_user_registration_register') %}</label>
-            </td>
-            </tr>
-                 
-            </table>
+    {% endif %}
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          
+          <a class="navbar-brand" href="#">Proyecto de Software</a>
         </div>
 
-    </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+          <ul class="nav navbar-nav navbar-right">
+            <form class="navbar-form navbar-left"  action="{{ path("fos_user_security_check") }}"  method="POST">
+                <div class="form-group">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                    <label for="username">{{ 'security.login.username'|trans }}</label>
+                    <input type="text" id="username"  class="form-control" placeholder="Usuario" name="_username" value="{{ last_username }}" required="required" />
+
+                    <label for="password">{{ 'security.login.password'|trans }}</label>
+                    <input type="password" class="form-control" placeholder="Password" id="password" name="_password" required="required" />
+
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+                    <input type="submit"  id="_submit" class="btn btn-default" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                    <input type="hidden" name="_target_path" value="{{'grupo51_proyecto_home'}}" />
+                </div>
+            </form>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    {% if error %}
+        <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+    {% endblock %}
     
-{% endblock %} 
+
+    {% block register %}
+      <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <h3><span class="label label-info">¿No tienes cuenta?, Registrate!</span></h3> 
+                <table class="table table-condensed">
+                <tr>
+                <td>
+                    <label>{% render url('fos_user_registration_register') %}</label>
+                </td>
+                </tr>
+                     
+                </table>
+            </div>
+
+        </div>
+        
+    {% endblock %} 
 
 {% endblock fos_user_content %}

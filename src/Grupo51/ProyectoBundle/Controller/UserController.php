@@ -9,6 +9,7 @@ class UserController extends Controller
     public function homeAction()
     {	
 
-        return $this->render('Grupo51ProyectoBundle:Default:home.html.twig', array('error'=>''));
+        return $this->render('Grupo51ProyectoBundle:LoggedUser:home.html.twig', array('error'=>''));
     }
+
 }
