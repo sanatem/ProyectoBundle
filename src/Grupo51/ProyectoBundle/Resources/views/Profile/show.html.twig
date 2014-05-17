@@ -1,5 +1,12 @@
 {% extends "Grupo51ProyectoBundle:LoggedUser:home.html.twig" %}
 
 {% block fos_user_content %}
-{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+<div class="panel panel-info">
+	<div class="panel panel-heading">
+		Mi Perfil
+	</div>	
+	<div class="panel-body">
+		{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+	</div>
+</div>
 {% endblock fos_user_content %}

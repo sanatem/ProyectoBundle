@@ -49,12 +49,13 @@
 
 <div class="container">
 	{% block content %}
-	<div class="hero-unit">
-	<h1>Bienvenido al sistema de estadísticas de FBA </h1>
-       <p><a href="{{path('fos_user_profile_show')}}" class="btn btn-primary btn-large">Acerca de mi &raquo;</a></p>
-    </div>
-    
-    	{% block fos_user_content %}
+		{# Mantenemos el bloque "Content" para el contenido que agreguemos nosotros #}
+		{% block fos_user_content %}
+			<div class="hero-unit">
+			<h1>Bienvenido al sistema de estadísticas de FBA </h1>
+       		<p><a href="{{path('fos_user_profile_show')}}" class="btn btn-primary btn-large">Acerca de mi &raquo;</a></p>
+    		</div>
+
     	{% endblock %}
 	{% endblock %}
 </div>
