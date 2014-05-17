@@ -31,19 +31,19 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
         ";
         // line 6
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 7
+        // line 9
         echo "        <link rel=\"icon\" type=\"image/x-icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("favicon.ico"), "html", null, true);
         echo "\" />
     </head>
     <body>
         ";
-        // line 10
+        // line 12
         $this->displayBlock('body', $context, $blocks);
-        // line 11
+        // line 13
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 12
+        // line 17
         echo "    </body>
 </html>
 ";
@@ -52,22 +52,36 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
     // line 5
     public function block_title($context, array $blocks = array())
     {
-        echo "Welcome!";
+        echo "Welcome";
     }
 
     // line 6
     public function block_stylesheets($context, array $blocks = array())
     {
+        // line 7
+        echo "            <link rel=\"stylesheet\" type=\"text/css\" href=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bootstrap/css/bootstrap.css"), "html", null, true);
+        echo "\">
+        ";
     }
 
-    // line 10
+    // line 12
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 11
+    // line 13
     public function block_javascripts($context, array $blocks = array())
     {
+        // line 14
+        echo "            <script type=\"text/javascript\" src=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bootstrap/js/jquery.js"), "html", null, true);
+        echo "\"></script>
+            <script type=\"text/javascript\" src=\"";
+        // line 15
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bootstrap/js/bootstrap.js"), "html", null, true);
+        echo "\"></script>    
+        ";
     }
 
     public function getTemplateName()
@@ -82,6 +96,6 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
 
     public function getDebugInfo()
     {
-        return array (  69 => 11,  64 => 10,  59 => 6,  53 => 5,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  29 => 5,  23 => 1,  62 => 13,  57 => 12,  54 => 11,  46 => 7,  43 => 6,  40 => 5,  33 => 6,  30 => 2,);
+        return array (  82 => 15,  77 => 14,  74 => 13,  69 => 12,  62 => 7,  59 => 6,  53 => 5,  47 => 17,  44 => 13,  42 => 12,  35 => 9,  33 => 6,  29 => 5,  23 => 1,);
     }
 }

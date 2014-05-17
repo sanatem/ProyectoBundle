@@ -46,19 +46,18 @@ class __TwigTemplate_e56b2cbfcdd0be1bc01a004397cb2c115664b29c3811a696a41b17eb457
         echo $this->env->getExtension('routing')->getPath("fos_user_security_login");
         echo "\";
  </script>
- <div class=\"alert alert-warning\">que puto que es el que no modula</div>
 ";
     }
 
-    // line 11
+    // line 10
     public function block_javascript($context, array $blocks = array())
     {
-        // line 12
+        // line 11
         echo " <script type=\"text/javascript\" src=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bootstrap/js/bootstrap.js"), "html", null, true);
         echo "\"></script>
  <script type=\"text/javascript\" src=\"";
-        // line 13
+        // line 12
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("jquery.js"), "html", null, true);
         echo "\"></script>
 ";
@@ -76,6 +75,6 @@ class __TwigTemplate_e56b2cbfcdd0be1bc01a004397cb2c115664b29c3811a696a41b17eb457
 
     public function getDebugInfo()
     {
-        return array (  62 => 13,  57 => 12,  54 => 11,  46 => 7,  43 => 6,  40 => 5,  33 => 3,  30 => 2,);
+        return array (  61 => 12,  56 => 11,  53 => 10,  46 => 7,  43 => 6,  40 => 5,  33 => 3,  30 => 2,);
     }
 }
