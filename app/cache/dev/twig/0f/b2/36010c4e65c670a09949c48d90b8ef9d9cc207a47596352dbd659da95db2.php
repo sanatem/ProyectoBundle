@@ -60,7 +60,7 @@ class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da
     ";
         // line 60
         $this->displayBlock('register', $context, $blocks);
-        // line 79
+        // line 74
         echo " 
 
 ";
@@ -158,22 +158,17 @@ class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da
     {
         // line 61
         echo "      <div class=\"row\">
-            <div class=\"col-md-6\">
+            <div class=\"col-md-4\">
+                            <h3><span class=\"label label-info\">¿No tienes cuenta? Registrate!</span></h3> 
 
-            </div>
-            <div class=\"col-md-6\">
-                <h3><span class=\"label label-info\">¿No tienes cuenta?, Registrate!</span></h3> 
-                <table class=\"table table-condensed\">
-                <tr>
-                <td>
                     <label>";
-        // line 70
+        // line 65
         echo $this->env->getExtension('actions')->renderUri($this->env->getExtension('routing')->getUrl("fos_user_registration_register"), array());
         echo "</label>
-                </td>
-                </tr>
-                     
-                </table>
+
+            </div>
+            <div class=\"col-md-8\">
+
             </div>
 
         </div>
@@ -193,6 +188,6 @@ class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da
 
     public function getDebugInfo()
     {
-        return array (  171 => 70,  160 => 61,  157 => 60,  153 => 57,  147 => 55,  145 => 54,  135 => 47,  131 => 46,  126 => 44,  119 => 40,  114 => 38,  110 => 37,  105 => 35,  100 => 33,  88 => 23,  81 => 19,  78 => 18,  76 => 17,  73 => 16,  70 => 15,  64 => 79,  62 => 60,  58 => 58,  56 => 15,  53 => 14,  50 => 13,  43 => 9,  40 => 8,  35 => 5,  32 => 4,);
+        return array (  166 => 65,  160 => 61,  157 => 60,  153 => 57,  147 => 55,  145 => 54,  135 => 47,  131 => 46,  126 => 44,  119 => 40,  114 => 38,  110 => 37,  105 => 35,  100 => 33,  88 => 23,  81 => 19,  78 => 18,  76 => 17,  73 => 16,  70 => 15,  64 => 74,  62 => 60,  58 => 58,  56 => 15,  53 => 14,  50 => 13,  43 => 9,  40 => 8,  35 => 5,  32 => 4,);
     }
 }
