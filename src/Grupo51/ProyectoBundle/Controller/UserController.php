@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Grupo51\ProyectoBundle\Entity\User;
 use Grupo51\ProyectoBundle\Form\UserType;
 
+
 /**
  * User controller.
  *
@@ -53,8 +54,12 @@ class UserController extends Controller
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $userManager = $this->container->get('fos_user.user_manager');
 
         if ($form->isValid()) {
+            $entity->setEnabled(true);
+            $entity->setPlainPassword($entity->getPassword());
+            $userManager->updatePassword($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -82,7 +87,7 @@ class UserController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear Usuario'));
 
         return $form;
     }

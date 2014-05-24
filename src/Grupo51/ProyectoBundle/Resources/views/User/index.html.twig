@@ -1,7 +1,7 @@
-{% extends '::base.html.twig' %}
+{% extends 'Grupo51ProyectoBundle:LoggedUser:home.html.twig' %}
 
-{% block body -%}
-    <h1>User list</h1>
+{% block content %}
+    <h1>Gestión de Usuarios</h1>
 
     <table class="records_list">
         <thead>
@@ -16,10 +16,10 @@
         <tbody>
         {% for entity in entities %}
             <tr>
+                <td>{{ entity.id }}</td>
                 <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
                 <td>{{ entity.email }}</td>
-                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.id }}</td>
+                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td> 
                 <td>
                 <ul>
                     <li>
