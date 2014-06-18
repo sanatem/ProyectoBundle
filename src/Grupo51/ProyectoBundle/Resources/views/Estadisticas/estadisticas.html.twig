@@ -1,0 +1,43 @@
+{% extends "Grupo51ProyectoBundle:LoggedUser:home.html.twig" %}
+{% block title %}
+Estadisticas
+{% endblock %}
+{% block content %}
+<h1>Estadisticas</h1>
+<div class="row">
+	
+</div>
+	<table class="table ">
+		<tr>
+		  <td class="success">Numero Encuesta</td>
+		  <td class="success">Tipo de encuestas</td>
+		  <td class="success">Fecha de inicio</td>
+		  <td class="success">Fecha de fin</td>
+		  <td class="success">Cantidad de respuestas/Total encuestados</td>
+		  <td class="success"></td>
+		</tr>
+	{% for encuesta in encuestas %}
+		<tr>
+			<td class="success">{{ encuesta.getIdEncuesta() }}</td>
+			{% for pr in pruebas %}
+			    {% if pr.getIdPrueba == encuesta.getIdPrueba %}
+					<td class="success">{{pr.getNombre}}</td>
+			    {% endif %}
+			{% endfor %}
+			<td class="success">{{ encuesta.getFechaInicio() }}</td>
+			<td class="success">{{ encuesta.getFechaFin() }}</td>
+			<td class="success">{{ cantidadEncuestados[encuesta.getIdEncuesta()] }}</td>
+			<td class="success">
+				<form action="{{path('grupo51_proyecto_obtenerEstadistica')}}" method="POST">
+					<input  name="id_encuesta" type="hidden" value="{{encuesta.getIdEncuesta}}" >
+					<input  name="fecha_inicio" type="hidden" value="{{ encuesta.getFechaInicio() }}">
+					<button type="submit" class="btn-success" >Estadistica</button>
+				</form>
+			</td>
+
+		</tr>	
+	{% endfor %}
+
+
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "Grupo51ProyectoBundle:LoggedUser:home.html.twig" %}
+{% block title %}
+Estadisticas
+{% endblock %}
+{% block content %}
+<h1>Estadisticas2</h1>
+<body onload="generarGraficoTE( '{{ labs }}'  , '{{ tiempo }}', '{{tiempoAn}}', '{{tiempoIn}}')">
+	
+	
+<div class="row">
+				<div class="col-md-4">
+					<div id="container-1" ></div>	
+				</div>
+				<div class="col-md-4">
+					<div id="container-2" ></div>	
+				</div>
+				<div class="col-md-4">
+					<div id="container-3" ></div>	
+				</div>
+</div>	
+</body>
+{% endblock %}

@@ -8,3 +8,11 @@ grupo51_proyecto_home:
 
 users:
     resource:  "@Grupo51ProyectoBundle/Controller/"	
+
+grupo51_proyecto_estadisticas:
+    pattern:  /estadisticas
+    defaults: { _controller: Grupo51ProyectoBundle:Estadisticas:estadisticas }
+
+grupo51_proyecto_obtenerEstadistica:
+    pattern:  /obtenerEstadistica
+    defaults: { _controller: Grupo51ProyectoBundle:Estadisticas:obtenerEstadistica }
