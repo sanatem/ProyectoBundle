@@ -43,7 +43,7 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
         // line 13
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 17
+        // line 19
         echo "    </body>
 </html>
 ";
@@ -80,6 +80,14 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
             <script type=\"text/javascript\" src=\"";
         // line 15
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bootstrap/js/bootstrap.js"), "html", null, true);
+        echo "\"></script> 
+            <script type=\"text/javascript\" src=\"";
+        // line 16
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("highcharts/js/highcharts.js"), "html", null, true);
+        echo "\"></script> 
+            <script type=\"text/javascript\" src=\"";
+        // line 17
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("funcionGraficos.js"), "html", null, true);
         echo "\"></script>    
         ";
     }
@@ -96,6 +104,6 @@ class __TwigTemplate_d8efef07c1b5ec5626c7cb514a4eb10e369adc1d85d583e1860dc76ee52
 
     public function getDebugInfo()
     {
-        return array (  82 => 15,  77 => 14,  74 => 13,  69 => 12,  59 => 6,  47 => 17,  44 => 13,  42 => 12,  33 => 6,  29 => 5,  23 => 1,  168 => 66,  166 => 65,  160 => 61,  157 => 60,  153 => 57,  147 => 55,  145 => 54,  135 => 47,  131 => 46,  126 => 44,  119 => 40,  114 => 38,  110 => 37,  105 => 35,  100 => 33,  88 => 23,  81 => 19,  78 => 18,  76 => 17,  73 => 16,  70 => 15,  64 => 74,  62 => 7,  58 => 58,  56 => 15,  53 => 5,  50 => 13,  43 => 9,  40 => 8,  35 => 9,  32 => 4,);
+        return array (  90 => 17,  86 => 16,  69 => 12,  62 => 7,  53 => 5,  47 => 19,  44 => 13,  42 => 12,  33 => 6,  29 => 5,  23 => 1,  169 => 62,  167 => 61,  161 => 57,  158 => 56,  154 => 53,  148 => 51,  146 => 50,  136 => 43,  132 => 42,  127 => 40,  120 => 36,  115 => 34,  111 => 33,  106 => 31,  101 => 29,  89 => 19,  82 => 15,  79 => 14,  77 => 14,  74 => 13,  71 => 11,  65 => 70,  63 => 56,  59 => 6,  57 => 11,  54 => 10,  51 => 9,  46 => 73,  43 => 9,  40 => 8,  35 => 9,  32 => 4,);
     }
 }

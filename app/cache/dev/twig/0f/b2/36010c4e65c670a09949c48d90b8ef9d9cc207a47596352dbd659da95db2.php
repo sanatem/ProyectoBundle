@@ -1,6 +1,6 @@
 <?php
 
-/* Grupo51ProyectoBundle:Security:login.html.twig */
+/* FOSUserBundle:Security:login.html.twig */
 class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da95db2 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -179,7 +179,7 @@ class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da
 
     public function getTemplateName()
     {
-        return "Grupo51ProyectoBundle:Security:login.html.twig";
+        return "FOSUserBundle:Security:login.html.twig";
     }
 
     public function isTraitable()
@@ -189,6 +189,6 @@ class __TwigTemplate_0fb236010c4e65c670a09949c48d90b8ef9d9cc207a47596352dbd659da
 
     public function getDebugInfo()
     {
-        return array (  169 => 62,  167 => 61,  161 => 57,  158 => 56,  154 => 53,  148 => 51,  146 => 50,  136 => 43,  132 => 42,  127 => 40,  120 => 36,  115 => 34,  111 => 33,  106 => 31,  101 => 29,  89 => 19,  82 => 15,  79 => 14,  77 => 13,  74 => 12,  71 => 11,  65 => 70,  63 => 56,  59 => 54,  57 => 11,  54 => 10,  51 => 9,  46 => 73,  43 => 9,  40 => 8,  35 => 5,  32 => 4,  31 => 3,  28 => 2,);
+        return array (  169 => 62,  167 => 61,  161 => 57,  158 => 56,  154 => 53,  148 => 51,  146 => 50,  136 => 43,  132 => 42,  127 => 40,  120 => 36,  115 => 34,  111 => 33,  106 => 31,  101 => 29,  89 => 19,  82 => 15,  79 => 14,  77 => 13,  74 => 12,  71 => 11,  65 => 70,  63 => 56,  59 => 54,  57 => 11,  54 => 10,  51 => 9,  46 => 73,  43 => 9,  40 => 8,  35 => 5,  32 => 4,);
     }
 }

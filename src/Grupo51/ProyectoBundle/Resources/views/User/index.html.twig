@@ -1,12 +1,11 @@
 {% extends 'Grupo51ProyectoBundle:LoggedUser:home.html.twig' %}
 
 {% block content %}
-    <h1>Gestión de Usuarios</h1>
+    <h3>Gestión de Usuarios</h3>
 
-    <table class="records_list">
+    <table class="table table-centered">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Lastlogin</th>
@@ -16,30 +15,18 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.id }}</td>
-                <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+                <td><b>{{ entity.username }}</b></td>
                 <td>{{ entity.email }}</td>
                 <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td> 
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                        <a href="{{ path('user_show', { 'id': entity.id }) }}"><span class="label label-info">Show</span></a>
+                        <a href="{{ path('user_edit', { 'id': entity.id }) }}"><span class="label label-info">Edit</span></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
             <a href="{{ path('fos_user_registration_register') }}">
-                Create a new entry
+                           <span class="label label-info"> Create new user </span>
             </a>
-        </li>
-    </ul>
     {% endblock %}

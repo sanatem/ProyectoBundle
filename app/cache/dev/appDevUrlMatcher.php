@@ -233,6 +233,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // grupo51_proyecto_estadisticas
+        if ($pathinfo === '/estadisticas') {
+            return array (  '_controller' => 'Grupo51\\ProyectoBundle\\Controller\\EstadisticasController::estadisticasAction',  '_route' => 'grupo51_proyecto_estadisticas',);
+        }
+
+        // grupo51_proyecto_obtenerEstadistica
+        if ($pathinfo === '/obtenerEstadistica') {
+            return array (  '_controller' => 'Grupo51\\ProyectoBundle\\Controller\\EstadisticasController::obtenerEstadisticaAction',  '_route' => 'grupo51_proyecto_obtenerEstadistica',);
+        }
+
         if (0 === strpos($pathinfo, '/log')) {
             if (0 === strpos($pathinfo, '/login')) {
                 // fos_user_security_login

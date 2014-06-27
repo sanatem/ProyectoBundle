@@ -9,29 +9,28 @@ Estadisticas
 </div>
 	<table class="table ">
 		<tr>
-		  <td class="success">Numero Encuesta</td>
-		  <td class="success">Tipo de encuestas</td>
-		  <td class="success">Fecha de inicio</td>
-		  <td class="success">Fecha de fin</td>
-		  <td class="success">Cantidad de respuestas/Total encuestados</td>
-		  <td class="success"></td>
+		  <td class="info"><b>Numero Encuesta</b></td>
+		  <td class="info"><b>Tipo de encuestas</b></td>
+		  <td class="info"><b>Fecha de inicio</b></td>
+		  <td class="info"><b>Fecha de fin</b></td>
+		  <td class="info"><b>Cantidad de respuestas/Total encuestados</b></td>
 		</tr>
 	{% for encuesta in encuestas %}
 		<tr>
-			<td class="success">{{ encuesta.getIdEncuesta() }}</td>
+			<td class="info">{{ encuesta.getIdEncuesta() }}</td>
 			{% for pr in pruebas %}
 			    {% if pr.getIdPrueba == encuesta.getIdPrueba %}
-					<td class="success">{{pr.getNombre}}</td>
+					<td class="info">{{pr.getNombre}}</td>
 			    {% endif %}
 			{% endfor %}
-			<td class="success">{{ encuesta.getFechaInicio() }}</td>
-			<td class="success">{{ encuesta.getFechaFin() }}</td>
-			<td class="success">{{ cantidadEncuestados[encuesta.getIdEncuesta()] }}</td>
-			<td class="success">
+			<td class="info">{{ encuesta.getFechaInicio() }}</td>
+			<td class="info">{{ encuesta.getFechaFin() }}</td>
+			<td class="info">{{ cantidadEncuestados[encuesta.getIdEncuesta()] }}</td>
+			<td class="info">
 				<form action="{{path('grupo51_proyecto_obtenerEstadistica')}}" method="POST">
 					<input  name="id_encuesta" type="hidden" value="{{encuesta.getIdEncuesta}}" >
 					<input  name="fecha_inicio" type="hidden" value="{{ encuesta.getFechaInicio() }}">
-					<button type="submit" class="btn-success" >Estadistica</button>
+					<button type="submit" class="btn btn-info" >Estadistica</button>
 				</form>
 			</td>
 

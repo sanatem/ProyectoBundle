@@ -1,10 +1,28 @@
 {% extends 'Grupo51ProyectoBundle:LoggedUser:home.html.twig' %}
 
 {% block content %}
-    <h1>User creation</h1>
-
-    {{ form(form) }}
-
+    <h3>User creation</h3>
+    {{form_start(form)}}
+    <table>
+    <tr>
+    <td>{{form_label(form.Username)}}</td>
+    <td>{{form_widget(form.Username,{'attr': {'class': 'form-control','type':'text','placeholder':'nombre'}})}}</td>
+    </tr>
+    <tr>
+    <td>{{form_label(form.Email)}}</td>
+    <td>{{form_widget(form.Email,{'attr': {'class': 'form-control','type':'text','placeholder':'email'}})}}</td>
+    </tr>
+    <tr>
+    <td>{{form_label(form.Password)}}</td>
+    <td>{{form_widget(form.Password,{'attr': {'class': 'form-control','type':'text','placeholder':'password'}})}}</td>
+    </tr>
+    <tr>
+    <td>
+    {{form_widget(form.submit,{'attr':{'class':'btn btn-info'}})}}
+    </td>
+     </tr>
+     </table>
+     {{form_end(form)}} 
     <ul class="record_actions">
     <li>
         <a href="{{ path('user') }}">
